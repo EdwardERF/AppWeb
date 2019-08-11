@@ -1,0 +1,6 @@
+C:\Users\edwar\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Persistencia\bin\Debug\Persistencia.dll
+C:\Users\edwar\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Persistencia\bin\Debug\Persistencia.pdb
+C:\Users\edwar\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Persistencia\obj\Debug\Persistencia.csprojAssemblyReference.cache
+C:\Users\edwar\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Persistencia\obj\Debug\Persistencia.csproj.CoreCompileInputs.cache
+C:\Users\edwar\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Persistencia\obj\Debug\Persistencia.dll
+C:\Users\edwar\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Persistencia\obj\Debug\Persistencia.pdb
