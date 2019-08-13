@@ -28,6 +28,8 @@
                         <asp:BoundField HeaderText="Teléfono" />
                     </Columns>
                 </asp:GridView>
+                <br />
+                <asp:Label ID="lblError" runat="server"></asp:Label>
             </div>
         </div>
     </form>
