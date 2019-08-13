@@ -11,7 +11,7 @@ namespace Persistencia
 {
     public class PersistenciaCliente
     {
-        public static void ListarCliente()
+        public static List<Cliente> ListarCliente()
         {
             int oCI, oTelefono;
             string oNombre, oApellido;
@@ -55,7 +55,7 @@ namespace Persistencia
                 oConexion.Close();
             }
 
-
+            return oListaClientes;
         }
     }
 }
