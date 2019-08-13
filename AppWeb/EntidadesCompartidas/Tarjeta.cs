@@ -9,6 +9,7 @@ namespace EntidadesCompartidas
     public abstract class Tarjeta
     {
         //De las Tarjetas se conoce:
+        //Cedula de la cual dependen
         //NroTarjeta (pero es PK en la BD) esto hay que verlo bien -- Deducción: no se pregunta al cliente, se crea automáticamente.
         //--Aca igual hay un tema. Por ejemplo, para agregar una tarjeta, esta bien, no se pide NroTarjeta, porque se crea automático en la BD. 
         //--Pero luego, al modificar una Tarjeta, se tiene que saber el NroTarjeta, lo mismo para eliminarla. Cómo se accede a ella?
@@ -17,11 +18,18 @@ namespace EntidadesCompartidas
         //Personalizada (si o no)
 
         //Atributos
+        private int _ci;
         private int _NroTarjeta;
         private DateTime _FechaVencimiento;
         private bool _Personalizada;
 
         //Propiedades
+        public int CI
+        {
+            get { return _ci; }
+            set { _ci = value; }
+        }
+
         public int NroTarjeta
         {
             get { return _NroTarjeta; }
@@ -41,8 +49,9 @@ namespace EntidadesCompartidas
         }
 
         //Constructor
-        public Tarjeta(int pNroTarjeta, DateTime pFechaVencimiento, bool pPersonalizada)
+        public Tarjeta(int pCI, int pNroTarjeta, DateTime pFechaVencimiento, bool pPersonalizada)
         {
+            CI = pCI;
             NroTarjeta = pNroTarjeta;
             FechaVencimiento = pFechaVencimiento;
             Personalizada = pPersonalizada;
@@ -51,7 +60,7 @@ namespace EntidadesCompartidas
         //Operaciones
         public override string ToString()
         {
-            return "Numero Tarjeta: " + NroTarjeta + " - Fecha de Vencimiento: " + FechaVencimiento + " - Personalizada: " + Personalizada;
+            return "CI: " + CI + " - Numero Tarjeta: " + NroTarjeta + " - Fecha de Vencimiento: " + FechaVencimiento + " - Personalizada: " + Personalizada;
         }
     }
 }
