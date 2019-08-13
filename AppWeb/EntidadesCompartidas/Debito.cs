@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntidadesCompartidas
 {
-    class Debito : Tarjeta
+    public class Debito : Tarjeta
     {
         //De debito se conoce:
         //Saldo

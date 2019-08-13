@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntidadesCompartidas
 {
-    class Compra
+    public class Compra
     {
         //De compra se conoce:
         //NroCompra autogenerado

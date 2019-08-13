@@ -1,0 +1,1 @@
+Pide un Listado de Clientes, por tanto hay que hacer un SP que muestre a todos los clientes, lo cual aun no esta hecho.

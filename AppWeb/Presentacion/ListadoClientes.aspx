@@ -19,7 +19,17 @@
 <body>
     <form id="form1" runat="server">
         <div class="auto-style1">
-            Listado de Clientes</div>
+            Listado de Clientes<div>
+                <asp:GridView ID="gvListadoClientes" runat="server" AutoGenerateColumns="False" Height="197px" Width="456px">
+                    <Columns>
+                        <asp:BoundField DataField="codart" HeaderText="CI" />
+                        <asp:BoundField DataField="nomart" HeaderText="Nombre" />
+                        <asp:BoundField DataField="preart" HeaderText="Apellido" />
+                        <asp:BoundField HeaderText="Teléfono" />
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
     </form>
 </body>
 </html>

@@ -21,6 +21,8 @@ namespace EntidadesCompartidas
         private string _apellido;
         private int _telefono;
 
+        private Cliente _cli;
+
         //Propiedades
         public int CI
         {
@@ -46,7 +48,22 @@ namespace EntidadesCompartidas
             set { _telefono = value; }
         }
 
+        public Cliente Cli
+        {
+            get { return _cli; }
+            set { _cli = value; }
+        }
+
         //Constructor
+        public Cliente(int pCI, string pNombre, string pApellido, int pTelefono, Cliente pCli)
+        {
+            CI = pCI;
+            Nombre = pNombre;
+            Apellido = pApellido;
+            Telefono = pTelefono;
+            Cli = pCli;
+        }
+
         public Cliente(int pCI, string pNombre, string pApellido, int pTelefono)
         {
             CI = pCI;
