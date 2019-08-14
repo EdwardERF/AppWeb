@@ -53,12 +53,9 @@ public partial class ListadoClientes : System.Web.UI.Page
         {
             try
             {
-                for(int i = gvListadoClientes.Rows.Count; gvListadoClientes.Rows.Count <= i; i++)
-                {
-                    int pCI = Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[i].Text);
-                    oCli = LogicaCliente.BuscarCliente(pCI);
-                    _ListaSeleccion.Add(oCli);
-                }
+                int pCI = Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[0].Text);
+                oCli = LogicaCliente.BuscarCliente(pCI);
+                _ListaSeleccion.Add(oCli);
 
                 gvSeleccionCliente.DataSource = _ListaSeleccion;
                 gvSeleccionCliente.DataBind();
@@ -77,6 +74,12 @@ public partial class ListadoClientes : System.Web.UI.Page
             GridViewRow r = gvListadoClientes.SelectedRow;
             //No se si es el VS nuevo, pero en vez de Color, tengo que colocar System.Drawing.Color, dejo comentario para recordar antes de enviar.
             r.BackColor = System.Drawing.Color.Beige;
+
+            //Obtengo codigo para mostrar la información del Cliente
+            int CI = Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[0].Text);
+
+            Cliente oCli = LogicaCliente.BuscarCliente(CI);
+            lblError.Text = "Cliente seleccionado: " + oCli.ToString();
         }
         catch(Exception ex)
         {
