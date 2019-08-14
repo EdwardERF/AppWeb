@@ -14,5 +14,11 @@ namespace Logica
         {
             return PersistenciaCliente.ListarCliente();
         }
+
+        public static Cliente BuscarCliente(int pCI)
+        {
+            Cliente oCli = PersistenciaCliente.BuscarCliente(pCI);
+            return oCli;
+        }
     }
 }

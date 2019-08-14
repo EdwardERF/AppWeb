@@ -11,3 +11,9 @@ if (ddlCompraXCliente == cliente)
 }
 
 Esa ddl igual de algun lado tiene que tener los datos para saber los clientes existentes
+
+-----------------
+ListadoClientes: me falta crear SelectedIndexChanged para generar Selección
+
+
+Falta crear SP para las solicitudes nuevas, arreglar las viejas, y renombrar los SP cuando se invocan en Persistencia
