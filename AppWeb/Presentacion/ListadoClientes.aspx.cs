@@ -53,9 +53,12 @@ public partial class ListadoClientes : System.Web.UI.Page
         {
             try
             {
-                int pCI = Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[0].Text);
-                oCli = LogicaCliente.BuscarCliente(pCI);
-                _ListaSeleccion.Add(oCli);
+                for(int i = gvListadoClientes.Rows.Count; gvListadoClientes.Rows.Count <= i; i++)
+                {
+                    int pCI = Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[i].Text);
+                    oCli = LogicaCliente.BuscarCliente(pCI);
+                    _ListaSeleccion.Add(oCli);
+                }
 
                 gvSeleccionCliente.DataSource = _ListaSeleccion;
                 gvSeleccionCliente.DataBind();
@@ -64,6 +67,20 @@ public partial class ListadoClientes : System.Web.UI.Page
             {
                 lblError.Text = ex.Message;
             }
+        }
+    }
+
+    protected void gvListadoClientes_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            GridViewRow r = gvListadoClientes.SelectedRow;
+            //No se si es el VS nuevo, pero en vez de Color, tengo que colocar System.Drawing.Color, dejo comentario para recordar antes de enviar.
+            r.BackColor = System.Drawing.Color.Beige;
+        }
+        catch(Exception ex)
+        {
+            lblError.Text = ex.Message;
         }
     }
 }
