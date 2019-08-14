@@ -1,1 +1,13 @@
 Pide un Listado de Clientes, por tanto hay que hacer un SP que muestre a todos los clientes, lo cual aun no esta hecho.
+
+ListadoComprasXCliente
+
+var cliente;
+
+if (ddlCompraXCliente == cliente)
+{
+	gvComprasXCliente.DataSource = List<Compra> con condición que las compras sean de cliente;
+	gvComprasXCliente.DataBind();
+}
+
+Esa ddl igual de algun lado tiene que tener los datos para saber los clientes existentes
