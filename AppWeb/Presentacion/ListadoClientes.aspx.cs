@@ -86,4 +86,11 @@ public partial class ListadoClientes : System.Web.UI.Page
             lblError.Text = ex.Message;
         }
     }
+
+    protected void gvListadoClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvListadoClientes.PageIndex = e.NewPageIndex;
+        gvListadoClientes.DataSource = (List<Cliente>)Session["_ListaTotal"];
+        gvListadoClientes.DataBind();
+    }
 }

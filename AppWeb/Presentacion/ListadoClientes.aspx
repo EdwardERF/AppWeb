@@ -40,6 +40,7 @@
                                 <br />
                                 <asp:Button ID="btnSeleccion" runat="server" OnClick="btnSeleccion_Click" Text="Ver Detalles de Cliente" />
                                 <br />
+                                <br />
                             </div>
                         </td>
                     </tr>
