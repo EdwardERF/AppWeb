@@ -21,6 +21,7 @@
 <body class="calibri">
     <form id="form1" runat="server">
         <div class="auto-style1">
+        <div class="auto-style1">
             Agregar Tarjeta<br />
         </div>
         <table class="auto-style2">
@@ -33,6 +34,9 @@
                 </td>
             </tr>
         </table>
+            <br />
+            <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+        </div>
     </form>
 </body>
 </html>

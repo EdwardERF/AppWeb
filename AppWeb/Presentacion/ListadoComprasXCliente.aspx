@@ -35,6 +35,7 @@
             <asp:Label ID="lblError" runat="server"></asp:Label>
             <br />
             <br />
+            <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
             <br />
         </div>
     </form>

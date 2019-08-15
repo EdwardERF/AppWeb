@@ -58,6 +58,47 @@ namespace Persistencia
             return oListaClientes;
         }
 
+        public static List<Cliente> ListarComprasXCliente()
+        {
+            Cliente oCli;
+            List<Cliente> oListaCxC = new List<Cliente>();
+            SqlDataReader oReader;
+
+            SqlConnection oConexion = new SqlConnection(Conexion.STR);
+            SqlCommand oComando = new SqlCommand("SP ListarComprasXCliente", oConexion);
+
+            try
+            {
+                oConexion.Open();
+                oReader = oComando.ExecuteReader();
+
+                if (oReader.HasRows)
+                {
+                    while (oReader.Read())
+                    {
+                        int CI = (int)oReader["ci"];
+                        oCli = PersistenciaCliente.BuscarCliente(CI);
+
+                        Cliente _Cli = new Cliente(CI, (string)oReader["nombre"], (string)oReader["apellido"], (int)oReader["numTel"]);
+
+                        oListaCxC.Add(_Cli);
+                    }
+
+                    oReader.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oConexion.Close();
+            }
+
+            return oListaCxC;
+        }
+
         public static Cliente BuscarCliente(int pCI)
         {
             int oTelefono;

@@ -96,6 +96,12 @@
                     <asp:Label ID="lblError" runat="server"></asp:Label>
                 </td>
             </tr>
+            <tr>
+                <td class="auto-style8">&nbsp;</td>
+                <td class="auto-style13">
+                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+                </td>
+            </tr>
         </table>
     </form>
 </body>

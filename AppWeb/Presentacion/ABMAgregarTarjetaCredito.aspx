@@ -124,6 +124,13 @@
                 </td>
                 <td class="auto-style11"></td>
             </tr>
+            <tr>
+                <td class="auto-style8">&nbsp;</td>
+                <td class="auto-style13">
+                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+                </td>
+                <td class="auto-style11">&nbsp;</td>
+            </tr>
         </table>
     </form>
 </body>

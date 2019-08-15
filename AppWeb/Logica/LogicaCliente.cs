@@ -20,5 +20,10 @@ namespace Logica
             Cliente oCli = PersistenciaCliente.BuscarCliente(pCI);
             return oCli;
         }
+
+        public static List<Cliente> ListarComprasXCliente()
+        {
+            return PersistenciaCliente.ListarComprasXCliente();
+        }
     }
 }
