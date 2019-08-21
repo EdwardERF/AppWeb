@@ -295,19 +295,16 @@ exec @RET = sp_AgregarCompra 20, 1000
 print 'Resultado: ' + convert(varchar(5),@RET)
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-create proc sp_TotalCompras
-@ci int,
-@año int
+create proc sp_TotalCompras --ESTE ES EL SP DE TOTAL COMPRAS POR CLIENTE
+@ci int
 AS
 	if exists (select * from Cliente where ci = @ci)
 		begin
-			declare @RET int
-			select @RET = count(*) from Tarjeta T INNER JOIN Compra C ON T.NroTarj = C.NroTarj
-			where ci = @ci and year(FechaCompra) = @año
-			return @RET
+			select * from Tarjeta T INNER JOIN Compra C ON T.NroTarj = C.NroTarj
+			where ci = @ci
 		end
 	else
-		return -1
+		return -1 --ESTO ES UN ERROR SQL
 go
 
 --Pruebas
@@ -316,8 +313,6 @@ exec @RET = sp_TotalCompras 66666666, 2019
 print 'Resultado: ' + convert(varchar(5), @RET)
 go
 
---create proc sp_TotalComprasXCliente
---go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_TotalVentas
 @FechaIni datetime,
