@@ -1,4 +1,4 @@
-create database Obligatorio
+﻿create database Obligatorio
 go
 
 use Obligatorio
@@ -17,8 +17,9 @@ go
 
 create table Telefono
 (
-	numTel int primary key,
-	ci int not null foreign key references Cliente(ci)
+	numTel int not null,
+	ci int not null references Cliente(ci)
+	primary key(numTel, ci)
 )
 go
 
@@ -34,7 +35,7 @@ go
 create table Credito
 (
 	NroTarj int not null primary key foreign key references Tarjeta(NroTarj),
-	cat bit not null,
+	cat int not null,
 	credito int not null
 )
 go
@@ -112,6 +113,13 @@ go
 
 -------------------------------------------------------------------------------
 --Creacion de procesos almacenados
+
+--create proc sp_AgregarCliente
+--go
+
+--create proc sp_ModificarCliente
+--go
+
 create proc sp_EliminarCliente
 @ci int
 AS
@@ -183,7 +191,7 @@ AS
 		end
 go
 
---Pruebas
+--Pruebas 
 --Eliminacion exitosa (con varias tarjetas ligadas a la CI)
 declare @RET int
 exec @RET = sp_EliminarCliente 11111111
@@ -202,6 +210,16 @@ exec @RET = sp_EliminarCliente 33333333
 print 'Resultado: ' + convert(varchar(5),@RET)
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--create proc sp_AgregarTarjetaCredito
+--go
+
+--create proc sp_AgregarTarjetaDebito
+--go
+
+--create proc sp_TotalClientes
+--go
+
 create proc sp_AgregarCompra
 @NumTarjeta int,
 @ImporteCompra int
@@ -253,13 +271,6 @@ AS
 		return -2
 go
 
-/*
-REFERENCIAS DE ERRORES
-return -1: Saldo/Credito insuficiente
-return  1: Compra agregada exitosamente
-return -2: La tarjeta esta vencida | La tarjeta no existe.
-*/
-
 --Pruebas
 --Exitosas
 declare @RET int
@@ -305,6 +316,8 @@ exec @RET = sp_TotalCompras 66666666, 2019
 print 'Resultado: ' + convert(varchar(5), @RET)
 go
 
+--create proc sp_TotalComprasXCliente
+--go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_TotalVentas
 @FechaIni datetime,
@@ -332,5 +345,12 @@ AS
 go
 
 exec sp_ClientesNoRentables
+go
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create proc sp_TarjetasVencidas
+AS
+	select * from Tarjeta
+	where fechaVencimiento < GETDATE()
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

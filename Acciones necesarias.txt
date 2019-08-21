@@ -1,19 +1,4 @@
-Pide un Listado de Clientes, por tanto hay que hacer un SP que muestre a todos los clientes, lo cual aun no esta hecho.
-
-ListadoComprasXCliente
-
-var cliente;
-
-if (ddlCompraXCliente == cliente)
-{
-	gvComprasXCliente.DataSource = List<Compra> con condición que las compras sean de cliente;
-	gvComprasXCliente.DataBind();
-}
-
-Esa ddl igual de algun lado tiene que tener los datos para saber los clientes existentes
-
------------------
-ListadoClientes: me falta crear SelectedIndexChanged para generar Selección
-
-
 Falta crear SP para las solicitudes nuevas, arreglar las viejas, y renombrar los SP cuando se invocan en Persistencia
+
+RNE: 
+- Categoria (Tarjeta Credito) : Tiene solo 4 valores posibles (1, 2, 3, 4)
