@@ -122,8 +122,36 @@ AS
 	insert Cliente values(@ci, @nombre, @apellido)
 go
 
---create proc sp_ModificarCliente
---go
+create proc sp_ModificarCliente
+@ci int,
+@nombre varchar(30),
+@apellido varchar(30),
+
+@numTel int
+AS
+	if exists (select * from Cliente where ci = @ci)
+	begin
+		BEGIN TRAN
+		update Cliente set nombre = @nombre, apellido = @apellido
+		where ci = @ci
+		if (@@ERROR<>0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+		update Telefono set numTel = @numTel
+		where ci = @ci
+		if (@@ERROR<>0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+		COMMIT TRAN
+		return 1 --Esto es, modificacion exitosa
+	end
+	else
+		return -1 --Esto es, no existe un cliente con esa CI
+go
 
 create proc sp_EliminarCliente
 @ci int
@@ -282,7 +310,10 @@ go
 
 create proc sp_TotalClientes
 AS
-	select * from Cliente
+	if exists (select * from Cliente)
+		select * from Cliente
+	else
+		return -1 --Esto es, aun no hay clientes cargados en el sistema
 go
 
 create proc sp_AgregarCompra
@@ -410,7 +441,12 @@ go
 
 create proc sp_TarjetasVencidas
 AS
-	select * from Tarjeta
-	where fechaVencimiento < GETDATE()
+	if exists (select * from Tarjeta)
+	begin
+		select * from Tarjeta
+		where fechaVencimiento < GETDATE()
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas cargadas en el sistema
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
