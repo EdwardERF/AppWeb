@@ -217,8 +217,10 @@ go
 --create proc sp_AgregarTarjetaDebito
 --go
 
---create proc sp_TotalClientes
---go
+create proc sp_TotalClientes
+AS
+	select * from Cliente
+go
 
 create proc sp_AgregarCompra
 @NumTarjeta int,
