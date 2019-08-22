@@ -216,24 +216,68 @@ print 'Resultado: ' + convert(varchar(5),@RET)
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---Falta crear tarjeta generica
---Falta, luego, capturar ese numero de tarjeta para crear Credito o Debito
-
-
 create proc sp_AgregarTarjetaCredito
-@NroTarj int,
+@ci int,
+@fechaVencimiento datetime,
+@pers bit,
+
 @cat int,
 @credito int
 AS
-	insert Credito values(@NroTarj, @cat, @credito)
+	if not exists (select * from Cliente where ci = @ci)
+		return -1 --Esto es, no existe cliente
+	else
+	begin
+		declare @NroTarj int
+		BEGIN TRAN
+			insert Tarjeta values(@ci, @fechaVencimiento, @pers)
+			if (@@ERROR <> 0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+			set @NroTarj = @@IDENTITY
+			insert Credito values(@NroTarj, @cat, @credito)
+			if (@@ERROR <> 0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+		COMMIT TRAN
+		return 1 --Esto es, operacion exitosa
+	end
 go
 
 create proc sp_AgregarTarjetaDebito
-@NroTarj int,
+@ci int,
+@fechaVencimiento datetime,
+@pers bit,
+
 @CantCuentAsoc int,
 @saldo int
 AS
-	
+	if not exists (select * from Cliente where ci = @ci)
+		return -1 --Esto es, no existe cliente
+	else
+	begin
+		declare @NroTarj int
+		BEGIN TRAN
+			insert Tarjeta values(@ci, @fechaVencimiento, @pers)
+			if (@@ERROR <> 0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+			set @NroTarj = @@IDENTITY
+			insert Debito values(@NroTarj, @CantCuentAsoc, @saldo)
+			if (@@ERROR <> 0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+		COMMIT TRAN
+		return 1 --Esto es, operacion exitosa
+	end
 go
 
 create proc sp_TotalClientes
