@@ -114,8 +114,13 @@ go
 -------------------------------------------------------------------------------
 --Creacion de procesos almacenados
 
---create proc sp_AgregarCliente
---go
+create proc sp_AgregarCliente
+@ci int,
+@nombre varchar(30),
+@apellido varchar(30)
+AS
+	insert Cliente values(@ci, @nombre, @apellido)
+go
 
 --create proc sp_ModificarCliente
 --go
