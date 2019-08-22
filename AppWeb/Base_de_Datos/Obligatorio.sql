@@ -43,7 +43,7 @@ go
 create table Debito
 (
 	NroTarj int not null primary key foreign key references Tarjeta(NroTarj), --Es FK de Tarjeta, al mismo tiempo que es PK de esta entidad
-	CantCuentAsoc tinyint not null,
+	CantCuentAsoc int not null,
 	saldo int not null
 )
 go
@@ -216,11 +216,25 @@ print 'Resultado: ' + convert(varchar(5),@RET)
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---create proc sp_AgregarTarjetaCredito
---go
+--Falta crear tarjeta generica
+--Falta, luego, capturar ese numero de tarjeta para crear Credito o Debito
 
---create proc sp_AgregarTarjetaDebito
---go
+
+create proc sp_AgregarTarjetaCredito
+@NroTarj int,
+@cat int,
+@credito int
+AS
+	insert Credito values(@NroTarj, @cat, @credito)
+go
+
+create proc sp_AgregarTarjetaDebito
+@NroTarj int,
+@CantCuentAsoc int,
+@saldo int
+AS
+	
+go
 
 create proc sp_TotalClientes
 AS

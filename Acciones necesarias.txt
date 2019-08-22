@@ -2,3 +2,13 @@ Falta crear SP para las solicitudes nuevas, arreglar las viejas, y renombrar los
 
 RNE: 
 - Categoria (Tarjeta Credito) : Tiene solo 4 valores posibles (1, 2, 3, 4)
+
+
+
+
+AGREGAR TARJETAS
+
+- Primero, con parametros que me pasa el usuario, creo la tarjeta generica
+- Bajo sentencia, consigo el ultimo NroTarj que tenga asociado a la CI. Por defecto, va a ser la más grande que tenga esa ci. Se puede hacer un select top 1 where ci = @ci
+- Con la variable NroTarj que necesitaba, creo la Credito o Debito
+- Pronto
