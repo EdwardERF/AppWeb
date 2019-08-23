@@ -61,23 +61,6 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
         lblError.Text = "";
     }
 
-    protected void btnAlta_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Cliente oCli = new Cliente(Convert.ToInt32(txtCI.Text), Convert.ToString(txtNombre.Text), Convert.ToString(txtApellido.Text), Convert.ToInt32(txtTelefono.Text));
-
-            Logica.LogicaCliente.Alta(oCli);
-            lblError.Text = "Alta exitosa";
-
-            this.LimpioFormulario();
-        }
-        catch (Exception ex)
-        {
-            lblError.Text = ex.Message;
-        }
-    }
-
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
         try
@@ -106,22 +89,18 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
         }
     }
 
-    protected void btnModificar_Click(object sender, EventArgs e)
+    protected void btnAlta_Click(object sender, EventArgs e)
     {
         try
         {
-            Cliente oCli = (Cliente)Session["ClienteABM"];
+            Cliente oCli = new Cliente(Convert.ToInt32(txtCI.Text), Convert.ToString(txtNombre.Text), Convert.ToString(txtApellido.Text), Convert.ToInt32(txtTelefono.Text));
 
-            //Modifico el objeto
-            oCli.Nombre = txtNombre.Text;
-            oCli.Apellido = txtApellido.Text;
-            oCli.Telefono = Convert.ToInt32(txtTelefono.Text);
+            Logica.LogicaCliente.Alta(oCli);
+            lblError.Text = "Alta exitosa";
 
-            Logica.LogicaCliente.Modificar(oCli);
-            lblError.Text = "Modificación exitosa";
             this.LimpioFormulario();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             lblError.Text = ex.Message;
         }
@@ -136,6 +115,27 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
             Logica.LogicaCliente.Baja(oCli);
 
             lblError.Text = "Eliminación exitosa";
+            this.LimpioFormulario();
+        }
+        catch(Exception ex)
+        {
+            lblError.Text = ex.Message;
+        }
+    }
+
+    protected void btnModificar_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Cliente oCli = (Cliente)Session["ClienteABM"];
+
+            //Modifico el objeto
+            oCli.Nombre = txtNombre.Text;
+            oCli.Apellido = txtApellido.Text;
+            oCli.Telefono = Convert.ToInt32(txtTelefono.Text);
+
+            Logica.LogicaCliente.Modificar(oCli);
+            lblError.Text = "Modificación exitosa";
             this.LimpioFormulario();
         }
         catch(Exception ex)

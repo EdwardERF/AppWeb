@@ -27,10 +27,10 @@
         <table class="auto-style2">
             <tr>
                 <td class="auto-style1">
-                    <asp:LinkButton ID="lbtnCredito" runat="server">Crédito</asp:LinkButton>
+                    <asp:LinkButton ID="lbtnCredito" runat="server" PostBackUrl="~/ABMAgregarTarjetaCredito.aspx">Crédito</asp:LinkButton>
                 </td>
                 <td class="auto-style1">
-                    <asp:LinkButton ID="lbtnDebito" runat="server">Débito</asp:LinkButton>
+                    <asp:LinkButton ID="lbtnDebito" runat="server" PostBackUrl="~/ABMAgregarTarjetaDebito.aspx">Débito</asp:LinkButton>
                 </td>
             </tr>
         </table>
