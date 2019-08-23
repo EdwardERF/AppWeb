@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="LogicaCliente.cs" />
     <Compile Include="LogicaCompra.cs" />
+    <Compile Include="LogicaTarjeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

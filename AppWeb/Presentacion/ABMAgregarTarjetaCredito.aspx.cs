@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using EntidadesCompartidas;
+using Logica;
+
 public partial class ABMAgregarTarjetaCredito : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -15,30 +18,14 @@ public partial class ABMAgregarTarjetaCredito : System.Web.UI.Page
 
     private void ActivoBotonesM()
     {
-        btnModificar.Enabled = true;
-
         btnAlta.Enabled = false;
-        btnBuscar.Enabled = false;
-
-        txtCI.Enabled = false;
-    }
-
-    private void ActivoBotonesA()
-    {
-        btnBuscar.Enabled = false;
-        btnAlta.Enabled = true;
-        btnModificar.Enabled = false;
-
         txtCI.Enabled = false;
     }
 
     private void LimpioFormulario()
     {
-        btnBuscar.Enabled = true;
         txtCI.Enabled = true;
-
-        btnAlta.Enabled = false;
-        btnModificar.Enabled = false;
+        btnAlta.Enabled = true;
 
         txtCI.Text = "0";
         txtFechaVencimiento.Text = "";
@@ -47,5 +34,18 @@ public partial class ABMAgregarTarjetaCredito : System.Web.UI.Page
         txtCreditoDisponible.Text = "";
 
         lblError.Text = "";
+    }
+
+
+    protected void btnAlta_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            
+        }
+        catch(Exception ex)
+        {
+            lblError.Text = ex.Message;
+        }
     }
 }

@@ -71,65 +71,53 @@
                 <td class="auto-style5">
                     <asp:TextBox ID="txtCI" runat="server"></asp:TextBox>
                 </td>
-                <td class="auto-style4">
-                    <asp:Button ID="btnBuscar" runat="server" OnClick="btnBuscar_Click" Text="Buscar" />
-                </td>
             </tr>
             <tr>
                 <td class="auto-style3">Fecha de Vencimiento:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtFechaVencimiento" runat="server"></asp:TextBox>
                 </td>
-                <td class="auto-style10">&nbsp;</td>
             </tr>
             <tr>
                 <td class="auto-style3">Personalizada:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtPersonalizada" runat="server" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
                 </td>
-                <td class="auto-style10">&nbsp;</td>
             </tr>
             <tr>
                 <td class="auto-style3">Categoría:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtCategoria" runat="server"></asp:TextBox>
                 </td>
-                <td class="auto-style10">&nbsp;</td>
             </tr>
             <tr>
                 <td class="auto-style3">Crédito</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtCreditoDisponible" runat="server"></asp:TextBox>
                 </td>
-                <td class="auto-style10">&nbsp;</td>
             </tr>
             <tr>
                 <td class="auto-style3">
-                    <asp:Button ID="btnAlta" runat="server" Text="Alta" />
-                </td>
-                <td class="auto-style12">&nbsp;</td>
-                <td class="auto-style10">
-                    <asp:Button ID="btnModificar" runat="server" Text="Modificar" />
+                    &nbsp;</td>
+                <td class="auto-style12">
+                    <asp:Button ID="btnAlta" runat="server" Text="Alta" OnClick="btnAlta_Click" />
                 </td>
             </tr>
             <tr>
                 <td class="auto-style3">&nbsp;</td>
                 <td class="auto-style12">&nbsp;</td>
-                <td class="auto-style10">&nbsp;</td>
             </tr>
             <tr>
                 <td class="auto-style8"></td>
                 <td class="auto-style13">
                     <asp:Label ID="lblError" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style11"></td>
             </tr>
             <tr>
                 <td class="auto-style8">&nbsp;</td>
                 <td class="auto-style13">
-                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx" OnClick="lbVolver_Click">Volver</asp:LinkButton>
                 </td>
-                <td class="auto-style11">&nbsp;</td>
             </tr>
         </table>
     </form>
