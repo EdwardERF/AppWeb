@@ -82,6 +82,40 @@ namespace Persistencia
             }
         }
 
+        public static void Baja(Cliente oCli)
+        {
+            SqlConnection oConexion = new SqlConnection(Conexion.STR);
+            SqlCommand oComando = new SqlCommand("sp_EliminarCliente", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            oComando.Parameters.AddWithValue("@ci", oCli.CI);
+
+            SqlParameter oParametro = new SqlParameter("@Retorno", SqlDbType.Int);
+            oParametro.Direction = ParameterDirection.ReturnValue;
+            oComando.Parameters.Add(oParametro);
+
+            try
+            {
+                oConexion.Open();
+                oComando.ExecuteNonQuery();
+
+                int ValReturn = (int)oComando.Parameters["@Retorno"].Value;
+
+                if (ValReturn == -3)
+                    throw new Exception("Error de transacción");
+                else if (ValReturn == -9)
+                    throw new Exception("Error en transacción");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oConexion.Close();
+            }
+        }
+
         public static List<Cliente> ListarCliente()
         {
             int oCI, oTelefono;

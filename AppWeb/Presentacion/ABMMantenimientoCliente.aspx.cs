@@ -126,4 +126,21 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
             lblError.Text = ex.Message;
         }
     }
+
+    protected void btnBaja_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Cliente oCli = (Cliente)Session["ClienteABM"];
+
+            Logica.LogicaCliente.Baja(oCli);
+
+            lblError.Text = "Eliminación exitosa";
+            this.LimpioFormulario();
+        }
+        catch(Exception ex)
+        {
+            lblError.Text = ex.Message;
+        }
+    }
 }

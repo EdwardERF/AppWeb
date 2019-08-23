@@ -107,7 +107,7 @@
                     <asp:Button ID="btnAlta" runat="server" Text="Alta" OnClick="btnAlta_Click" />
                 </td>
                 <td class="auto-style12">
-                    <asp:Button ID="btnBaja" runat="server" Text="Baja" />
+                    <asp:Button ID="btnBaja" runat="server" Text="Baja" OnClick="btnBaja_Click" />
                 </td>
                 <td class="auto-style10">
                     <asp:Button ID="btnModificar" runat="server" Text="Modificar" OnClick="btnModificar_Click" />
