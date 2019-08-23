@@ -105,4 +105,25 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
             lblError.Text = ex.Message;
         }
     }
+
+    protected void btnModificar_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Cliente oCli = (Cliente)Session["ClienteABM"];
+
+            //Modifico el objeto
+            oCli.Nombre = txtNombre.Text;
+            oCli.Apellido = txtApellido.Text;
+            oCli.Telefono = Convert.ToInt32(txtTelefono.Text);
+
+            Logica.LogicaCliente.Modificar(oCli);
+            lblError.Text = "Modificación exitosa";
+            this.LimpioFormulario();
+        }
+        catch(Exception ex)
+        {
+            lblError.Text = ex.Message;
+        }
+    }
 }

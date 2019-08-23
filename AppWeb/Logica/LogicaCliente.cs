@@ -15,6 +15,11 @@ namespace Logica
             PersistenciaCliente.Alta(oCli);
         }
 
+        public static void Modificar(Cliente oCli)
+        {
+            PersistenciaCliente.Modificar(oCli);
+        }
+
         public static List<Cliente> ListarClientes()
         {
             return PersistenciaCliente.ListarCliente();

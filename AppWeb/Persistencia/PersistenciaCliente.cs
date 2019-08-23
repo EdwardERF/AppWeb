@@ -45,6 +45,43 @@ namespace Persistencia
             }
         }
 
+        public static void Modificar(Cliente oCli)
+        {
+            SqlConnection oConexion = new SqlConnection(Conexion.STR);
+            SqlCommand oComando = new SqlCommand("sp_ModificarCliente", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            oComando.Parameters.AddWithValue("@ci", oCli.CI);
+            oComando.Parameters.AddWithValue("@nombre", oCli.Nombre);
+            oComando.Parameters.AddWithValue("@apellido", oCli.Apellido);
+            oComando.Parameters.AddWithValue("@numTel", oCli.Telefono);
+
+            SqlParameter oParametro = new SqlParameter("@Retorno", SqlDbType.Int);
+            oParametro.Direction = ParameterDirection.ReturnValue;
+            oComando.Parameters.Add(oParametro);
+
+            try
+            {
+                oConexion.Open();
+                oComando.ExecuteNonQuery();
+
+                int ValReturn = (int)oComando.Parameters["@Retorno"].Value;
+
+                if (ValReturn == -1)
+                    throw new Exception("No existe cliente con esa CI");
+                else if (ValReturn == -2)
+                    throw new Exception("Error de transacción");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oConexion.Close();
+            }
+        }
+
         public static List<Cliente> ListarCliente()
         {
             int oCI, oTelefono;
