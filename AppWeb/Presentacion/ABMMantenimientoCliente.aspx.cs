@@ -77,4 +77,32 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
             lblError.Text = ex.Message;
         }
     }
+
+    protected void btnBuscar_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int oCI = Convert.ToInt32(txtCI.Text);
+            Cliente oCli = Logica.LogicaCliente.BuscarCliente(oCI);
+
+            if (oCli == null)
+            {
+                this.ActivoBotonesA();
+                Session["ClienteABM"] = null;
+            }
+            else
+            {
+                this.ActivoBotonesBM();
+                Session["ClienteABM"] = oCli;
+
+                txtNombre.Text = oCli.Nombre;
+                txtApellido.Text = oCli.Apellido;
+                txtTelefono.Text = oCli.Apellido;
+            }
+        }
+        catch(Exception ex)
+        {
+            lblError.Text = ex.Message;
+        }
+    }
 }
