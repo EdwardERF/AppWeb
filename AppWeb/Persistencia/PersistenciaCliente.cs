@@ -11,6 +11,40 @@ namespace Persistencia
 {
     public class PersistenciaCliente
     {
+        public static void Alta(Cliente oCli)
+        {
+            SqlConnection oConexion = new SqlConnection(Conexion.STR);
+            SqlCommand oComando = new SqlCommand("sp_AgregarCliente", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            oComando.Parameters.AddWithValue("@ci", oCli.CI);
+            oComando.Parameters.AddWithValue("@nombre", oCli.Nombre);
+            oComando.Parameters.AddWithValue("@apellido", oCli.Apellido);
+
+            SqlParameter oParametro = new SqlParameter("@Retorno", SqlDbType.Int);
+            oParametro.Direction = ParameterDirection.ReturnValue;
+            oComando.Parameters.Add(oParametro);
+
+            try
+            {
+                oConexion.Open();
+                oComando.ExecuteNonQuery();
+
+                int oAfectados = (int)oComando.Parameters["@Retorno"].Value;
+
+                if (oAfectados == -1)
+                    throw new Exception("Error SQL");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oConexion.Close();
+            }
+        }
+
         public static List<Cliente> ListarCliente()
         {
             int oCI, oTelefono;

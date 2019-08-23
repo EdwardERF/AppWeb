@@ -10,20 +10,25 @@ namespace Logica
 {
     public class LogicaCliente
     {
+        public static void Alta(Cliente oCli)
+        {
+            PersistenciaCliente.Alta(oCli);
+        }
+
         public static List<Cliente> ListarClientes()
         {
             return PersistenciaCliente.ListarCliente();
+        }
+
+        public static List<Cliente> ListarComprasXCliente()
+        {
+            return PersistenciaCliente.ListarComprasXCliente();
         }
 
         public static Cliente BuscarCliente(int pCI)
         {
             Cliente oCli = PersistenciaCliente.BuscarCliente(pCI);
             return oCli;
-        }
-
-        public static List<Cliente> ListarComprasXCliente()
-        {
-            return PersistenciaCliente.ListarComprasXCliente();
         }
     }
 }

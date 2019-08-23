@@ -17,7 +17,7 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
     {
         if(!IsPostBack)
         {
-            //this.LimpioFormulario();
+            this.LimpioFormulario();
         }
 
     }
@@ -59,5 +59,22 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
         txtNombre.Text = "";
 
         lblError.Text = "";
+    }
+
+    protected void btnAlta_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Cliente oCli = new Cliente(Convert.ToInt32(txtCI.Text), Convert.ToString(txtNombre.Text), Convert.ToString(txtApellido.Text), Convert.ToInt32(txtTelefono.Text));
+
+            Logica.LogicaCliente.Alta(oCli);
+            lblError.Text = "Alta exitosa";
+
+            this.LimpioFormulario();
+        }
+        catch (Exception ex)
+        {
+            lblError.Text = ex.Message;
+        }
     }
 }
