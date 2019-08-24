@@ -18,7 +18,20 @@
 <body class="nuevoEstilo1">
     <form id="form1" runat="server">
         <div class="auto-style1">
-            Listado de Tarjetas Vencidas</div>
+            Listado de Tarjetas Vencidas<br />
+            Tipo:
+            <asp:DropDownList ID="ddlTipoTarjeta" runat="server" OnSelectedIndexChanged="ddlTipoTarjeta_SelectedIndexChanged">
+            </asp:DropDownList>
+            <br />
+            <br />
+            <asp:ListBox ID="lbTarjetas" runat="server"></asp:ListBox>
+            <br />
+            <br />
+            <asp:Label ID="lblError" runat="server"></asp:Label>
+            <br />
+            <br />
+            <asp:LinkButton ID="lbtnVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+        </div>
     </form>
 </body>
 </html>

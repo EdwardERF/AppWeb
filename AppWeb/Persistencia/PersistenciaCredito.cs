@@ -88,5 +88,42 @@ namespace Persistencia
 
             return oLista;
         }
+
+        public static List<Credito> ListarVencidas()
+        {
+            List<Credito> oLista = new List<Credito>();
+            SqlDataReader oReader;
+
+            SqlConnection oConexion = new SqlConnection(Conexion.STR);
+            SqlCommand oComando = new SqlCommand("sp_CreditoVencidas", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                oConexion.Open();
+                oReader = oComando.ExecuteReader();
+
+                if (oReader.HasRows)
+                {
+                    while (oReader.Read())
+                    {
+                        Credito oCredito = new Credito(Convert.ToInt32(oReader["NroTarj"]), Convert.ToDateTime(oReader["fechaVencimiento"]),
+                            Convert.ToBoolean(oReader["pers"]), Convert.ToInt32(oReader["cat"]), Convert.ToInt32(oReader["credito"]));
+
+                        oLista.Add(oCredito);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oConexion.Close();
+            }
+
+            return oLista;
+        }
     }
 }

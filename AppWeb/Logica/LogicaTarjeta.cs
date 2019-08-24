@@ -27,5 +27,33 @@ namespace Logica
 
             return oLista;
         }
+
+        public static List<Tarjeta> ListarVencidas()
+        {
+            List<Tarjeta> oLista = new List<Tarjeta>();
+
+            oLista.AddRange(PersistenciaCredito.ListarVencidas());
+            oLista.AddRange(PersistenciaDebito.ListarVencidas());
+
+            return oLista;
+        }
+
+        public static List<Credito> ListarVencidasCredito()
+        {
+            List<Credito> oLista = new List<Credito>();
+
+            oLista.AddRange(PersistenciaCredito.ListarVencidas());
+
+            return oLista;
+        }
+
+        public static List<Debito> ListarVencidasDebito()
+        {
+            List<Debito> oLista = new List<Debito>();
+
+            oLista.AddRange(PersistenciaDebito.ListarVencidas());
+
+            return oLista;
+        }
     }
 }

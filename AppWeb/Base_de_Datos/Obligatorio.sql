@@ -458,7 +458,32 @@ AS
 		return -1 --Esto es, aun no existen tarjetas cargadas en el sistema
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+create proc sp_CreditoVencidas
+AS
+	if exists (select * from Tarjeta)
+	begin
+		select * from Tarjeta T INNER JOIN Credito C ON T.NroTarj = C.NroTarj
+		where fechaVencimiento < GETDATE()
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas cargadas en el sistema
+go
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create proc sp_DebitoVencidas
+AS
+	if exists (select * from Tarjeta)
+	begin
+		select * from Tarjeta T INNER JOIN Debito D ON T.NroTarj = D.NroTarj
+		where fechaVencimiento < GETDATE()
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas cargadas en el sistema
+go
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_CreditoXCliente
 @ci int
 AS
