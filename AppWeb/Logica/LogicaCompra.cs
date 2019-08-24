@@ -14,5 +14,10 @@ namespace Logica
         {
             return PersistenciaCompra.ListarCompras(pCI);
         }
+
+        public static void Alta(Compra oCompra)
+        {
+            PersistenciaCompra.Alta(oCompra);
+        }
     }
 }

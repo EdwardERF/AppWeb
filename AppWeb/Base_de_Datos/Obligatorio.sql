@@ -318,6 +318,7 @@ go
 
 create proc sp_AgregarCompra
 @NumTarjeta int,
+@FechaCompra datetime,
 @ImporteCompra int
 AS
 	if exists (select @NumTarjeta from Credito where credito < @ImporteCompra) OR exists (select @NumTarjeta from Debito where saldo < @ImporteCompra)
@@ -331,7 +332,7 @@ AS
 					begin
 						if exists (select @NumTarjeta from Credito where credito >= @ImporteCompra) --Chequeo que tenga saldo
 							begin
-								insert Compra values(@NumTarjeta, getdate(), @ImporteCompra)
+								insert Compra values(@NumTarjeta, @FechaCompra, @ImporteCompra)
 								if @@ERROR <> 0
 									begin
 										rollback tran
@@ -346,7 +347,7 @@ AS
 							end
 						else if exists (select @NumTarjeta from Debito where saldo >= @ImporteCompra) --Chequeo que tenga saldo
 							begin
-								insert Compra values(@NumTarjeta, getdate(), @ImporteCompra)
+								insert Compra values(@NumTarjeta, @FechaCompra, @ImporteCompra)
 								if @@ERROR <> 0
 									begin
 										rollback tran

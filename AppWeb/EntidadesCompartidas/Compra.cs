@@ -54,6 +54,14 @@ namespace EntidadesCompartidas
             FechaCompra = pFechaCompra;
         }
 
+        //Constructor sin Identity
+        public Compra(int pNroTarjeta, int pImporteCompra, DateTime pFechaCompra)
+        {
+            NroTarjeta = pNroTarjeta;
+            ImporteCompra = pImporteCompra;
+            FechaCompra = pFechaCompra;
+        }
+
         //Operaciones
         public override string ToString()
         {

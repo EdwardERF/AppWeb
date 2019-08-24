@@ -11,6 +11,40 @@ namespace Persistencia
 {
     public class PersistenciaCompra
     {
+        public static void Alta(Compra oCompra)
+        {
+            SqlConnection oConexion = new SqlConnection(Conexion.STR);
+            SqlCommand oComando = new SqlCommand("sp_AgregarCompra", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            oComando.Parameters.AddWithValue("@NumTarjeta", oCompra.NroTarjeta);
+            oComando.Parameters.AddWithValue("@FechaCompra", oCompra.FechaCompra);
+            oComando.Parameters.AddWithValue("@ImporteCompra", oCompra.ImporteCompra);
+
+            SqlParameter oParametro = new SqlParameter("@Retorno", SqlDbType.Int);
+            oParametro.Direction = ParameterDirection.ReturnValue;
+            oComando.Parameters.Add(oParametro);
+
+            try
+            {
+                oConexion.Open();
+                oComando.ExecuteNonQuery();
+
+                int ValReturn = (int)oComando.Parameters["@Retorno"].Value;
+
+                if (ValReturn == -1)
+                    throw new Exception("Error SQL");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oConexion.Close();
+            }
+        }
+
         public static Compra BuscarCompra(int pCI)
         {
             int oNroCompra, oNroTarjeta, oImporteCompra;
