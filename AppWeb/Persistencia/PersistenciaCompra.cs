@@ -82,14 +82,14 @@ namespace Persistencia
             return oCom;
         }
 
-        public static List<Compra> ListarCompras(int pCI)
+        public static List<Compra> ListarCompras()
         {
             Compra oCom;
             List<Compra> oListaCompras = new List<Compra>();
             SqlDataReader oReader;
 
             SqlConnection oConexion = new SqlConnection(Conexion.STR);
-            SqlCommand oComando = new SqlCommand("SP ListarCompras " + pCI, oConexion);
+            SqlCommand oComando = new SqlCommand("sp_ListarCompras", oConexion);
 
             try
             {
@@ -109,6 +109,47 @@ namespace Persistencia
                 }
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oConexion.Close();
+            }
+
+            return oListaCompras;
+        }
+
+        public static List<Compra> ListarComprasXCliente(int oCI)
+        {
+            Compra oCom;
+            List<Compra> oListaCompras = new List<Compra>();
+            SqlDataReader oReader;
+
+            SqlConnection oConexion = new SqlConnection(Conexion.STR);
+            SqlCommand oComando = new SqlCommand("sp_TotalComprasXCliente", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            oComando.Parameters.AddWithValue("@ci", oCI);
+
+            try
+            {
+                oConexion.Open();
+                oReader = oComando.ExecuteReader();
+
+                if (oReader.HasRows)
+                {
+                    while (oReader.Read())
+                    {
+                        oCom = new Compra((int)oReader["NroCompra"], (int)oReader["NroTarj"], (int)oReader["ImporteCompra"], (DateTime)oReader["FechaCompra"]);
+
+                        oListaCompras.Add(oCom);
+                    }
+
+                    oReader.Close();
+                }
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

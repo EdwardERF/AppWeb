@@ -20,16 +20,18 @@
         <div class="auto-style1">
         <div class="auto-style1">
             Listado de Compras por Cliente</div>
-            <asp:DropDownList ID="ddlCliente" runat="server">
+            <asp:DropDownList ID="ddlCliente" runat="server" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged">
             </asp:DropDownList>
+            &nbsp;&nbsp;
+            <asp:Button ID="btnListar" runat="server" OnClick="btnListar_Click" Text="Listar" />
             <br />
-            <asp:GridView ID="gvComprasXCliente" runat="server" AutoGenerateColumns="False" Height="197px" Width="456px">
+            <div>
+            <asp:GridView ID="gvComprasXCliente" runat="server" Height="197px" Width="456px">
                 <Columns>
-                    <asp:BoundField DataField="codart" HeaderText="N° Compra" />
-                    <asp:BoundField DataField="nomart" HeaderText="N° Tarjeta" />
-                    <asp:BoundField DataField="preart" HeaderText="Importe" />
+                    <asp:BoundField DataField="codart" HeaderText="Cliente" />
                 </Columns>
             </asp:GridView>
+            </div>
             <br />
             <br />
             <asp:Label ID="lblError" runat="server"></asp:Label>

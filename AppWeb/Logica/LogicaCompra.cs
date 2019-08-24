@@ -10,9 +10,14 @@ namespace Logica
 {
     public class LogicaCompra
     {
-        public static List<Compra> ListarCompras(int pCI)
+        public static List<Compra> ListarCompras()
         {
-            return PersistenciaCompra.ListarCompras(pCI);
+            return PersistenciaCompra.ListarCompras();
+        }
+
+        public static List<Compra> ListarComprasXCliente(int oCI)
+        {
+            return PersistenciaCompra.ListarComprasXCliente(oCI);
         }
 
         public static void Alta(Compra oCompra)

@@ -392,7 +392,7 @@ exec @RET = sp_AgregarCompra 20, 1000
 print 'Resultado: ' + convert(varchar(5),@RET)
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-create proc sp_TotalCompras --ESTE ES EL SP DE TOTAL COMPRAS POR CLIENTE
+create proc sp_TotalComprasXCliente --ESTE ES EL SP DE TOTAL COMPRAS POR CLIENTE
 @ci int
 AS
 	if exists (select * from Cliente where ci = @ci)
@@ -410,6 +410,13 @@ exec @RET = sp_TotalCompras 66666666, 2019
 print 'Resultado: ' + convert(varchar(5), @RET)
 go
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create proc sp_ListarCompras
+AS
+	select * from Compra
+	if(@@ERROR<>0)
+		return -1 --Esto es, error SQL
+go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_TotalVentas
 @FechaIni datetime,

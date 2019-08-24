@@ -12,55 +12,30 @@ public partial class ListadoComprasXCliente : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
-        {
-            this.CargoDatos();
-            this.MostrarCliente();
-        }
-
-    }
-
-    protected void CargoDatos()
-    {
         try
         {
-            List<Cliente> oCLiente = LogicaCliente.ListarComprasXCliente();
-
-            if(oCLiente.Count > 0)
-            {
-                //codigo para hacer la ddl
-                ddlCliente.DataSource = oCLiente;
-                ddlCliente.DataTextField = "Cedula";
-                ddlCliente.DataValueField = "ci";
-                ddlCliente.DataBind();
-            }
-            else
-            {
-                lblError.Text = "ERROR: Aun no existe ningún cliente";
-            }
+            if (!IsPostBack)
+                Session["Lista"] = Logica.LogicaCompra.ListarCompras();
         }
-        catch (Exception ex)
+        catch(Exception ex)
         {
             lblError.Text = ex.Message;
         }
     }
 
-    protected void MostrarCliente()
+    protected void btnListar_Click(object sender, EventArgs e)
     {
         try
         {
-            //no se si de esto se saca el valor de la CI, no estoy seguro
-            int seleccion = -1; //Si es distinto a un numero negativo, quiere decir que sí hay un Cliente seleccionado
-            seleccion = Convert.ToInt32(ddlCliente.SelectedValue);
-
-            if (seleccion != -1)
+            if (ddlCliente.SelectedIndex == 0)
             {
-                gvComprasXCliente.DataSource = LogicaCompra.ListarCompras(seleccion);
-                gvComprasXCliente.DataBind();
+                Session["Lista"] = Logica.LogicaCompra.ListarCompras();
             }
             else
             {
-                lblError.Text = "Seleccione un cliente y podra ver las compras del mismo.";
+                int oCI = ddlCliente.SelectedIndex;
+                gvComprasXCliente.DataSource = Logica.LogicaCompra.ListarComprasXCliente(oCI);
+                gvComprasXCliente.DataBind();
             }
         }
         catch(Exception ex)
@@ -69,5 +44,11 @@ public partial class ListadoComprasXCliente : System.Web.UI.Page
         }
     }
 
-
+    protected void ddlCliente_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ddlCliente.DataSource = Logica.LogicaCliente.ListarClientes();
+        ddlCliente.DataTextField = "ci";
+        ddlCliente.DataValueField = "ci";
+        ddlCliente.DataBind();
+    }
 }
