@@ -81,7 +81,7 @@
             <tr>
                 <td class="auto-style3">Personalizada:</td>
                 <td class="auto-style12">
-                    <asp:TextBox ID="txtPersonalizada" runat="server" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
+                    <asp:TextBox ID="txtPersonalizada" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>

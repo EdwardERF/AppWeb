@@ -8,3 +8,8 @@ C:\Users\Edward\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Entidad
 C:\Users\Edward\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\EntidadesCompartidas\obj\Debug\EntidadesCompartidas.csproj.CoreCompileInputs.cache
 C:\Users\Edward\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\EntidadesCompartidas\obj\Debug\EntidadesCompartidas.dll
 C:\Users\Edward\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\EntidadesCompartidas\obj\Debug\EntidadesCompartidas.pdb
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\EntidadesCompartidas\bin\Debug\EntidadesCompartidas.dll
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\EntidadesCompartidas\bin\Debug\EntidadesCompartidas.pdb
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\EntidadesCompartidas\obj\Debug\EntidadesCompartidas.csproj.CoreCompileInputs.cache
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\EntidadesCompartidas\obj\Debug\EntidadesCompartidas.dll
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\EntidadesCompartidas\obj\Debug\EntidadesCompartidas.pdb

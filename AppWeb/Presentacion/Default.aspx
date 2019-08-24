@@ -33,10 +33,14 @@
 <body>
     <form id="form1" runat="server">
         <div class="auto-style1">
-            <strong class="nuevoEstilo2"><span class="auto-style2">Página Principal</span><br class="auto-style2" />
+            <asp:Image ID="imgLogo" runat="server" ImageUrl="~/Img/LogoEmpresa.png" />
+            <strong class="nuevoEstilo2"><span class="auto-style2">
+            <br />
+            <br />
+            Página Principal</span><br class="auto-style2" />
             </strong>
         </div>
-        <asp:LinkButton ID="lbtnMantenimientoClientes" runat="server" OnClick="LinkButton1_Click">Mantenimiento de Clientes</asp:LinkButton>
+        <asp:LinkButton ID="lbtnMantenimientoClientes" runat="server"></asp:LinkButton>
         <span class="nuevoEstilo4">
         <br />
         <br />

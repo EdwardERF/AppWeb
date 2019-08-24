@@ -91,7 +91,7 @@
             <tr>
                 <td class="auto-style3">Apellido/s:</td>
                 <td class="auto-style12">
-                    <asp:TextBox ID="txtApellido" runat="server" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
+                    <asp:TextBox ID="txtApellido" runat="server"></asp:TextBox>
                 </td>
                 <td class="auto-style10">&nbsp;</td>
             </tr>

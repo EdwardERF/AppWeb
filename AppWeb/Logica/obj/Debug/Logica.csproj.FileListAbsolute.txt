@@ -10,3 +10,14 @@ C:\Users\Edward\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Logica\
 C:\Users\Edward\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csproj.CoreCompileInputs.cache
 C:\Users\Edward\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Logica\obj\Debug\Logica.dll
 C:\Users\Edward\Google Drive\Git\BIOS\Web_Net\AppsWeb\Obligatorio\AppWeb\Logica\obj\Debug\Logica.pdb
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\Logica.dll
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\Logica.pdb
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\EntidadesCompartidas.dll
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\Persistencia.dll
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\EntidadesCompartidas.pdb
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\Persistencia.pdb
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csprojAssemblyReference.cache
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csproj.CoreCompileInputs.cache
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csproj.CopyComplete
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.dll
+C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.pdb

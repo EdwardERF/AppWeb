@@ -28,7 +28,7 @@
                     <tr>
                         <td>Totalidad de Clientes</td>
                         <td>
-                <asp:GridView ID="gvListadoClientes" runat="server" Height="197px" Width="456px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="gvListadoClientes_SelectedIndexChanged1">
+                <asp:GridView ID="gvListadoClientes" runat="server" Height="197px" Width="456px" AutoGenerateSelectButton="True">
                 </asp:GridView>
                             <div>
                                 <br />

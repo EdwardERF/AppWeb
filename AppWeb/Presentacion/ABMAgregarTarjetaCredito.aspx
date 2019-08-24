@@ -81,7 +81,7 @@
             <tr>
                 <td class="auto-style3">Personalizada:</td>
                 <td class="auto-style12">
-                    <asp:TextBox ID="txtPersonalizada" runat="server" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
+                    <asp:TextBox ID="txtPersonalizada" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -116,7 +116,7 @@
             <tr>
                 <td class="auto-style8">&nbsp;</td>
                 <td class="auto-style13">
-                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx" OnClick="lbVolver_Click">Volver</asp:LinkButton>
+                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
                 </td>
             </tr>
         </table>
