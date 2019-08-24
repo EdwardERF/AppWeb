@@ -116,7 +116,10 @@
             <tr>
                 <td class="auto-style8">&nbsp;</td>
                 <td class="auto-style13">
-                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/ABMAgregarTarjeta.aspx">Volver</asp:LinkButton>
+                    <br />
+                    <br />
+                    <asp:LinkButton ID="lbMenuPrincipal" runat="server" PostBackUrl="~/Default.aspx">Menu Principal</asp:LinkButton>
                 </td>
             </tr>
         </table>
