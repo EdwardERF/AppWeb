@@ -16,12 +16,6 @@ public partial class ABMAgregarTarjetaCredito : System.Web.UI.Page
             this.LimpioFormulario();
     }
 
-    private void ActivoBotonesM()
-    {
-        btnAlta.Enabled = false;
-        txtCI.Enabled = false;
-    }
-
     private void LimpioFormulario()
     {
         txtCI.Enabled = true;
@@ -36,12 +30,17 @@ public partial class ABMAgregarTarjetaCredito : System.Web.UI.Page
         lblError.Text = "";
     }
 
-
     protected void btnAlta_Click(object sender, EventArgs e)
     {
         try
         {
-            
+            Credito oTarjeta = new Credito(Convert.ToInt32(txtCI.Text), Convert.ToDateTime(txtFechaVencimiento.Text), Convert.ToBoolean(txtPersonalizada.Text), 
+                Convert.ToInt32(txtCategoria.Text), Convert.ToInt32(txtCreditoDisponible.Text));
+
+            Logica.LogicaTarjeta.Alta(oTarjeta);
+            lblError.Text = "Alta exitosa";
+
+            this.LimpioFormulario();
         }
         catch(Exception ex)
         {

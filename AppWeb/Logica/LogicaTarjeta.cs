@@ -8,11 +8,14 @@ using Persistencia;
 
 namespace Logica
 {
-    class LogicaTarjeta
+    public class LogicaTarjeta
     {
-        public static Tarjeta Buscar(int oCI)
+        public static void Alta(Tarjeta oTarjeta)
         {
-            return (PersistenciaTarjeta.Buscar(oCI));
+            if (oTarjeta is Credito)
+                PersistenciaCredito.Alta((Credito)oTarjeta);
+            else
+                PersistenciaDebito.Alta((Debito)oTarjeta);
         }
     }
 }

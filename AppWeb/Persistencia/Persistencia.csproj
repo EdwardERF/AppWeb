@@ -45,6 +45,8 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="PersistenciaCliente.cs" />
     <Compile Include="PersistenciaCompra.cs" />
+    <Compile Include="PersistenciaCredito.cs" />
+    <Compile Include="PersistenciaDebito.cs" />
     <Compile Include="PersistenciaTarjeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

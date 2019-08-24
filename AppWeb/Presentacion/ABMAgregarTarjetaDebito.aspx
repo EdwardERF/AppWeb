@@ -100,7 +100,7 @@
                 <td class="auto-style3">
                     &nbsp;</td>
                 <td class="auto-style12">
-                    <asp:Button ID="btnAlta" runat="server" Text="Alta" />
+                    <asp:Button ID="btnAlta" runat="server" Text="Alta" OnClick="btnAlta_Click" />
                 </td>
             </tr>
             <tr>

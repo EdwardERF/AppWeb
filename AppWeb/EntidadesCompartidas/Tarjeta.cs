@@ -48,11 +48,19 @@ namespace EntidadesCompartidas
             set { _Personalizada = value; }
         }
 
-        //Constructor
+        //Constructores
         public Tarjeta(int pCI, int pNroTarjeta, DateTime pFechaVencimiento, bool pPersonalizada)
         {
             CI = pCI;
             NroTarjeta = pNroTarjeta;
+            FechaVencimiento = pFechaVencimiento;
+            Personalizada = pPersonalizada;
+        }
+
+        //Constructor sin Identity
+        public Tarjeta(int pCI, DateTime pFechaVencimiento, bool pPersonalizada)
+        {
+            CI = pCI;
             FechaVencimiento = pFechaVencimiento;
             Personalizada = pPersonalizada;
         }
