@@ -17,17 +17,6 @@ public partial class ListadoClientes : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
-        {
-            Session["_ListaTotal"] = LogicaCliente.ListarClientes();
-            Session["_ListaSeleccion"] = new List<Cliente>();
-
-            gvListadoClientes.DataSource = (List<Cliente>)Session["_ListaTotal"];
-            gvListadoClientes.DataBind();
-
-            gvSeleccionCliente.DataSource = (List<Cliente>)Session["_ListaSeleccion"];
-            gvSeleccionCliente.DataBind();
-        }
         try
         {
             List<Cliente> oCliente = LogicaCliente.ListarClientes();
@@ -41,56 +30,32 @@ public partial class ListadoClientes : System.Web.UI.Page
         }
     }
 
-
-
-    protected void btnSeleccion_Click(object sender, EventArgs e)
-    {
-        Cliente oCli = null;
-        List<Cliente> _ListaSeleccion = (List<Cliente>)Session["_ListaSeleccion"];
-
-        //verifico que haya linea seleccionada
-        if(gvListadoClientes.SelectedRow != null)
-        {
-            try
-            {
-                int pCI = Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[0].Text);
-                oCli = LogicaCliente.BuscarCliente(pCI);
-                _ListaSeleccion.Add(oCli);
-
-                gvSeleccionCliente.DataSource = _ListaSeleccion;
-                gvSeleccionCliente.DataBind();
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = ex.Message;
-            }
-        }
-    }
-
     protected void gvListadoClientes_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
         {
-            GridViewRow r = gvListadoClientes.SelectedRow;
-            //No se si es el VS nuevo, pero en vez de Color, tengo que colocar System.Drawing.Color, dejo comentario para recordar antes de enviar.
-            r.BackColor = System.Drawing.Color.Beige;
+            EntidadesCompartidas.Cliente oCli = Logica.LogicaCliente.BuscarCliente(Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[1].Text));
 
-            //Obtengo codigo para mostrar la información del Cliente
-            int CI = Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[0].Text);
+            if(oCli != null)
+            {
+                lblCliente.Text = oCli.ToString();
 
-            Cliente oCli = LogicaCliente.BuscarCliente(CI);
-            lblError.Text = "Cliente seleccionado: " + oCli.ToString();
+                //Obtengo detalles de tarjetas del cliente
+                List<EntidadesCompartidas.Tarjeta> oLista = Logica.LogicaTarjeta.TarjetasXCliente(oCli.CI);
+
+                gvSeleccionCliente.DataSource = oLista;
+                gvSeleccionCliente.DataBind();
+            }
+            else
+            {
+                lblCliente.Text = "";
+                gvSeleccionCliente.DataSource = null;
+                gvSeleccionCliente.DataBind();
+            }
         }
         catch(Exception ex)
         {
             lblError.Text = ex.Message;
         }
-    }
-
-    protected void gvListadoClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        gvListadoClientes.PageIndex = e.NewPageIndex;
-        gvListadoClientes.DataSource = (List<Cliente>)Session["_ListaTotal"];
-        gvListadoClientes.DataBind();
     }
 }

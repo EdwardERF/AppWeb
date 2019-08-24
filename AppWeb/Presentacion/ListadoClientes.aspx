@@ -28,17 +28,12 @@
                     <tr>
                         <td>Totalidad de Clientes</td>
                         <td>
-                <asp:GridView ID="gvListadoClientes" runat="server" AutoGenerateColumns="False" Height="197px" Width="456px">
-                    <Columns>
-                        <asp:BoundField DataField="codart" HeaderText="CI" />
-                        <asp:BoundField DataField="nomart" HeaderText="Nombre" />
-                        <asp:BoundField DataField="preart" HeaderText="Apellido" />
-                        <asp:BoundField HeaderText="Teléfono" />
-                    </Columns>
+                <asp:GridView ID="gvListadoClientes" runat="server" Height="197px" Width="456px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="gvListadoClientes_SelectedIndexChanged1">
                 </asp:GridView>
                             <div>
                                 <br />
-                                <asp:Button ID="btnSeleccion" runat="server" OnClick="btnSeleccion_Click" Text="Ver Detalles de Cliente" />
+                                Detalles de Cliente:
+                                <asp:Label ID="lblCliente" runat="server"></asp:Label>
                                 <br />
                                 <br />
                             </div>
@@ -47,13 +42,7 @@
                     <tr>
                         <td>Detalles de un Cliente</td>
                         <td>
-                <asp:GridView ID="gvSeleccionCliente" runat="server" AutoGenerateColumns="False" Height="197px" Width="456px">
-                    <Columns>
-                        <asp:BoundField DataField="codart" HeaderText="Nombre" />
-                        <asp:BoundField DataField="nomart" HeaderText="Tarjeta" />
-                        <asp:BoundField DataField="preart" HeaderText="Personalizada" />
-                        <asp:BoundField HeaderText="F.Vencimiento" />
-                    </Columns>
+                <asp:GridView ID="gvSeleccionCliente" runat="server" Height="197px" Width="456px">
                 </asp:GridView>
                         </td>
                     </tr>

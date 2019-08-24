@@ -451,3 +451,27 @@ AS
 		return -1 --Esto es, aun no existen tarjetas cargadas en el sistema
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create proc sp_CreditoXCliente
+@ci int
+AS
+	if exists(select * from Credito)
+	begin
+		select * from Tarjeta T INNER JOIN Credito C ON T.NroTarj = C.NroTarj
+		where ci = @ci
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas de credito cargadas en el sistema
+go
+
+create proc sp_DebitoXCliente
+@ci int
+AS
+	if exists(select * from Debito)
+	begin
+		select * from Tarjeta T INNER JOIN Debito D ON T.NroTarj = D.NroTarj
+		where ci = @ci
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas de debito cargadas en el sistema
+go

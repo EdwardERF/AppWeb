@@ -17,5 +17,15 @@ namespace Logica
             else
                 PersistenciaDebito.Alta((Debito)oTarjeta);
         }
+
+        public static List<Tarjeta> TarjetasXCliente(int oCI)
+        {
+            List<Tarjeta> oLista = new List<Tarjeta>();
+
+            oLista.AddRange(PersistenciaCredito.ListarXCliente(oCI));
+            oLista.AddRange(PersistenciaDebito.ListarXCliente(oCI));
+
+            return oLista;
+        }
     }
 }

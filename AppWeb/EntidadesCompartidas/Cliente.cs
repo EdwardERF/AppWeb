@@ -71,5 +71,11 @@ namespace EntidadesCompartidas
             Apellido = pApellido;
             Telefono = pTelefono;
         }
+
+        //Operaciones
+        public override string ToString()
+        {
+            return "CI: " + CI + " - Nombre: " + Nombre + " - Apellido: " + Apellido + " - Telefono: " + Telefono;
+        }
     }
 }

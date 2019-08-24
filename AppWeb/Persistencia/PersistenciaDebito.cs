@@ -48,5 +48,45 @@ namespace Persistencia
                 oConexion.Close();
             }
         }
+
+        public static List<Debito> ListarXCliente(int oCI)
+        {
+            List<Debito> oLista = new List<Debito>();
+            SqlDataReader oReader;
+
+            SqlConnection oConexion = new SqlConnection(Conexion.STR);
+            SqlCommand oComando = new SqlCommand("sp_DebitoXCliente", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            oComando.Parameters.AddWithValue("@ci", oCI);
+
+            try
+            {
+                oConexion.Open();
+                oReader = oComando.ExecuteReader();
+
+                if (oReader.HasRows)
+                {
+                    while (oReader.Read())
+                    {
+                        Debito oDebito = new Debito(Convert.ToInt32(oReader["NroTarj"]), Convert.ToDateTime(oReader["fechaVencimiento"]),
+                            Convert.ToBoolean(oReader["pers"]), Convert.ToInt32(oReader["CantCuentAsoc"]), Convert.ToInt32(oReader["saldo"]));
+
+                        oLista.Add(oDebito);
+                    }
+                }
+                oReader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oConexion.Close();
+            }
+
+            return oLista;
+        }
     }
 }
