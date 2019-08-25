@@ -235,6 +235,12 @@ AS
 	select * from Cliente
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create proc sp_BuscarCliente
+@ci int
+AS
+	select * from Cliente where ci = @ci
+go
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 create proc sp_AgregarTarjetaCredito
 @ci int,
@@ -386,6 +392,12 @@ go
 declare @RET int
 exec @RET = sp_AgregarCompra 20, 1000
 print 'Resultado: ' + convert(varchar(5),@RET)
+go
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create proc sp_BuscarCompra
+@ci int
+AS
+	select * from Compra INNER JOIN Tarjeta ON Compra.NroTarj = Tarjeta.NroTarj where Tarjeta.ci = @ci
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_TotalComprasXCliente --ESTE ES EL SP DE TOTAL COMPRAS POR CLIENTE

@@ -54,7 +54,10 @@ namespace Persistencia
             SqlDataReader oReader;
 
             SqlConnection oConexion = new SqlConnection(Conexion.STR);
-            SqlCommand oComando = new SqlCommand("ex SPBuscarCompra" + pCI, oConexion);
+            SqlCommand oComando = new SqlCommand("sp_BuscarCompra", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            oComando.Parameters.AddWithValue("@ci", pCI);
 
             try
             {

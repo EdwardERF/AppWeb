@@ -128,7 +128,7 @@ namespace Persistencia
 
             SqlConnection oConexion = new SqlConnection(Conexion.STR);
 
-            SqlCommand oComando = new SqlCommand("SPListarClientes", oConexion);
+            SqlCommand oComando = new SqlCommand("sp_ListarClientes", oConexion);
             oComando.CommandType = CommandType.StoredProcedure;
 
             try
@@ -170,7 +170,7 @@ namespace Persistencia
             SqlDataReader oReader;
 
             SqlConnection oConexion = new SqlConnection(Conexion.STR);
-            SqlCommand oComando = new SqlCommand("SP ListarComprasXCliente", oConexion);
+            SqlCommand oComando = new SqlCommand("sp_TotalComprasXCliente", oConexion);
 
             try
             {
@@ -213,7 +213,10 @@ namespace Persistencia
             SqlDataReader oReader;
 
             SqlConnection oConexion = new SqlConnection(Conexion.STR);
-            SqlCommand oComando = new SqlCommand("exec BuscarCliente " + pCI, oConexion);
+            SqlCommand oComando = new SqlCommand("sp_BuscarCliente", oConexion);
+            oComando.CommandType = CommandType.StoredProcedure;
+
+            oComando.Parameters.AddWithValue("@ci", pCI);
 
             try
             {
