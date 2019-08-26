@@ -32,15 +32,23 @@ public partial class ListadoComprasXCliente : System.Web.UI.Page
     {
         try
         {
+            List<Compra> oLista = new List<Compra>();
+
             int oCI = Convert.ToInt32(ddlCliente.SelectedValue);
-            gvComprasXCliente.DataSource = LogicaCompra.ListarComprasXCliente(oCI);
-            gvComprasXCliente.DataBind();
 
-            lblError.Text = Convert.ToString(oCI);
+            oLista = LogicaCompra.ListarComprasXCliente(oCI);
 
-            if(gvComprasXCliente == null)
+            if(oLista.Count == 0)
             {
+                gvComprasXCliente.DataSource = null;
+                gvComprasXCliente.DataBind();
                 lblError.Text = "Este Cliente aun no tiene compras";
+            }
+            else
+            {
+                gvComprasXCliente.DataSource = LogicaCompra.ListarComprasXCliente(oCI);
+                gvComprasXCliente.DataBind();
+                lblError.Text = "";
             }
         }
         catch(Exception ex)
