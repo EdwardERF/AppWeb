@@ -20,16 +20,13 @@
         <div class="auto-style1">
         <div class="auto-style1">
             Listado de Compras por Cliente</div>
-            <asp:DropDownList ID="ddlCliente" runat="server" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlCliente" runat="server">
             </asp:DropDownList>
             &nbsp;&nbsp;
             <asp:Button ID="btnListar" runat="server" OnClick="btnListar_Click" Text="Listar" />
             <br />
             <div>
-            <asp:GridView ID="gvComprasXCliente" runat="server" Height="197px" Width="456px">
-                <Columns>
-                    <asp:BoundField DataField="codart" HeaderText="Cliente" />
-                </Columns>
+            <asp:GridView ID="gvComprasXCliente" runat="server" Height="197px" Width="456px" >
             </asp:GridView>
             </div>
             <br />
