@@ -14,7 +14,7 @@ namespace Logica
         {
             if (oTarjeta is Credito)
                 PersistenciaCredito.Alta((Credito)oTarjeta);
-            else
+            else if (oTarjeta is Debito)
                 PersistenciaDebito.Alta((Debito)oTarjeta);
         }
 

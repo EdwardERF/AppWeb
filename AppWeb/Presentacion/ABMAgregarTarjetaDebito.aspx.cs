@@ -36,6 +36,8 @@ public partial class ABMAgregarTarjetaDebito : System.Web.UI.Page
             Debito oDebito = new Debito(Convert.ToInt32(txtCI.Text), Convert.ToDateTime(CalendarioDebito.SelectedDate), Convert.ToInt32(txtPersonalizada.Text), 
                 Convert.ToInt32(txtSaldo.Text), Convert.ToInt32(txtCuentasAsociadas.Text));
 
+            LogicaTarjeta.Alta(oDebito);
+
             lblError.Text = "Alta exitosa";
 
         }

@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using EntidadesCompartidas;
+using Logica;
+
 public partial class ListadoTarjetasVencidas : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -13,8 +16,9 @@ public partial class ListadoTarjetasVencidas : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
-                lbTarjetas.DataSource = null;
-                lbTarjetas.DataBind();
+                ddlTipoTarjeta.Items.Insert(0, "Todas");
+                ddlTipoTarjeta.Items.Insert(1, "Credito");
+                ddlTipoTarjeta.Items.Insert(2, "Debito");
             }
         }
         catch(Exception ex)
@@ -23,27 +27,35 @@ public partial class ListadoTarjetasVencidas : System.Web.UI.Page
         }
     }
 
-    protected void ddlTipoTarjeta_SelectedIndexChanged(object sender, EventArgs e)
+    protected void btnListar_Click(object sender, EventArgs e)
     {
-        if (ddlTipoTarjeta.SelectedIndex == 0)
-        {
-            lbTarjetas.DataSource = null;
-            lbTarjetas.DataBind();
-        }
-        else if(ddlTipoTarjeta.SelectedIndex == 1)
-        {
-            lbTarjetas.DataSource = Logica.LogicaTarjeta.ListarVencidasCredito();
-            lbTarjetas.DataBind();
-        }
-        else if(ddlTipoTarjeta.SelectedIndex == 2)
-        {
-            lbTarjetas.DataSource = Logica.LogicaTarjeta.ListarVencidasDebito();
-            lbTarjetas.DataBind();
-        }
+        int Tipo;
+
+        string Variable = ddlTipoTarjeta.SelectedValue;
+
+        if (Variable == "Todas")
+            Tipo = 0;
+        else if (Variable == "Credito")
+            Tipo = 1;
+        else if (Variable == "Debito")
+            Tipo = 2;
         else
+            Tipo = 2;
+
+        if (Tipo == 0)
         {
-            lbTarjetas.DataSource = Logica.LogicaTarjeta.ListarVencidas();
-            lbTarjetas.DataBind();
+            gvTarjetasVencidas.DataSource = LogicaTarjeta.ListarVencidas();
+            gvTarjetasVencidas.DataBind();
+        }
+        else if(Tipo == 1)
+        {
+            gvTarjetasVencidas.DataSource = Logica.LogicaTarjeta.ListarVencidasCredito();
+            gvTarjetasVencidas.DataBind();
+        }
+        else if(Tipo == 2)
+        {
+            gvTarjetasVencidas.DataSource = Logica.LogicaTarjeta.ListarVencidasDebito();
+            gvTarjetasVencidas.DataBind();
         }
     }
 }

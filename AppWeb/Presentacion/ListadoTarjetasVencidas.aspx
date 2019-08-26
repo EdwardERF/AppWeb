@@ -20,11 +20,14 @@
         <div class="auto-style1">
             Listado de Tarjetas Vencidas<br />
             Tipo:
-            <asp:DropDownList ID="ddlTipoTarjeta" runat="server" OnSelectedIndexChanged="ddlTipoTarjeta_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlTipoTarjeta" runat="server">
             </asp:DropDownList>
+            &nbsp;
+            <asp:Button ID="btnListar" runat="server" OnClick="btnListar_Click" Text="Listar" />
             <br />
             <br />
-            <asp:ListBox ID="lbTarjetas" runat="server"></asp:ListBox>
+            <asp:GridView ID="gvTarjetasVencidas" runat="server">
+            </asp:GridView>
             <br />
             <br />
             <asp:Label ID="lblError" runat="server"></asp:Label>
