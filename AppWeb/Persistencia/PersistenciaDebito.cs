@@ -107,7 +107,7 @@ namespace Persistencia
                 {
                     while (oReader.Read())
                     {
-                        Debito oDebito = new Debito(Convert.ToInt32(oReader["NroTarj"]), Convert.ToDateTime(oReader["fechaVencimiento"]),
+                        Debito oDebito = new Debito(Convert.ToInt32(oReader["ci"]), Convert.ToInt32(oReader["NroTarj"]), Convert.ToDateTime(oReader["fechaVencimiento"]),
                             Convert.ToInt32(oReader["pers"]), Convert.ToInt32(oReader["CantCuentAsoc"]), Convert.ToInt32(oReader["saldo"]));
 
                         oLista.Add(oDebito);
