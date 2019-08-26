@@ -29,9 +29,17 @@ namespace EntidadesCompartidas
             set { _CreditoDisponible = value; }
         }
 
-        //Constructor
+        //Constructor sin Identity para crear
         public Credito(int pNroTarjeta, DateTime pFechaVencimiento, int pPersonalizada, int pCategoria, int pCreditoDisponible)
             : base(pNroTarjeta, pFechaVencimiento, pPersonalizada)
+        {
+            Categoria = pCategoria;
+            CreditoDisponible = pCreditoDisponible;
+        }
+
+        //Constructor para consultas
+        public Credito(int pCI, int pNroTarjeta, DateTime pFechaVencimiento, int pPersonalizada, int pCategoria, int pCreditoDisponible)
+            : base(pCI, pNroTarjeta, pFechaVencimiento, pPersonalizada)
         {
             Categoria = pCategoria;
             CreditoDisponible = pCreditoDisponible;

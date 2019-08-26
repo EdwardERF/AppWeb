@@ -29,9 +29,17 @@ namespace EntidadesCompartidas
             set { _CuentasAsociadas = value; }
         }
 
-        //Constructor
+        //Constructor sin Identity para crear
         public Debito(int pNroTarjeta, DateTime pFechaVencimiento, int pPersonalizada, int pSaldo, int pCuentasAsociadas)
             : base(pNroTarjeta, pFechaVencimiento, pPersonalizada)
+        {
+            Saldo = pSaldo;
+            CuentasAsociadas = pCuentasAsociadas;
+        }
+
+        //Constructor para consultas
+        public Debito(int pCI, int pNroTarjeta, DateTime pFechaVencimiento, int pPersonalizada, int pSaldo, int pCuentasAsociadas)
+            : base(pCI, pNroTarjeta, pFechaVencimiento, pPersonalizada)
         {
             Saldo = pSaldo;
             CuentasAsociadas = pCuentasAsociadas;
