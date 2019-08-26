@@ -35,7 +35,7 @@ public partial class RealizarCompra : System.Web.UI.Page
             Compra oCompra = new Compra(Convert.ToInt32(txtNroTarjeta.Text), Convert.ToInt32(txtImporte.Text), CalFechaCompra.SelectedDate);
 
             Logica.LogicaCompra.Alta(oCompra);
-            lblError.Text = "Alta exitosa";
+            lblError.Text = "Compra registrada exitosamente";
 
             this.LimpioFormulario();
         }
