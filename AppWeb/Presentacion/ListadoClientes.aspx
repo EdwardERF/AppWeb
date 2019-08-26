@@ -17,6 +17,9 @@
         .auto-style2 {
             width: 100%;
         }
+        .auto-style3 {
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -30,7 +33,10 @@
                         <td>
                 <asp:GridView ID="gvListadoClientes" runat="server" Height="197px" Width="456px" AutoGenerateSelectButton="True">
                 </asp:GridView>
-                            <div>
+                            <div class="auto-style3">
+                                <br />
+                                <asp:Button ID="btnVer" runat="server" OnClick="btnVer_Click" Text="Ver detalles" />
+                                <br />
                                 <br />
                                 Detalles de Cliente:
                                 <asp:Label ID="lblCliente" runat="server"></asp:Label>

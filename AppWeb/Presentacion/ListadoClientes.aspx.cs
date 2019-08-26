@@ -19,10 +19,14 @@ public partial class ListadoClientes : System.Web.UI.Page
     {
         try
         {
-            List<Cliente> oCliente = LogicaCliente.ListarClientes();
+            Session["ListaCompleta"] = LogicaCliente.ListarClientes();
+            Session["ListaSeleccion"] = new List<Cliente>();
 
-            gvListadoClientes.DataSource = oCliente;
+            gvListadoClientes.DataSource = (List<Cliente>)Session["ListaCompleta"];
             gvListadoClientes.DataBind();
+
+            gvSeleccionCliente.DataSource = (List<Cliente>)Session["ListaSeleccion"];
+            gvSeleccionCliente.DataBind();
         }
         catch (Exception ex)
         {
@@ -38,19 +42,41 @@ public partial class ListadoClientes : System.Web.UI.Page
 
             if(oCli != null)
             {
-                lblCliente.Text = oCli.ToString();
-
                 //Obtengo detalles de tarjetas del cliente
                 List<EntidadesCompartidas.Tarjeta> oLista = Logica.LogicaTarjeta.TarjetasXCliente(oCli.CI);
 
                 gvSeleccionCliente.DataSource = oLista;
                 gvSeleccionCliente.DataBind();
+
+                lblCliente.Text = oCli.ToString();
             }
             else
             {
                 lblCliente.Text = "";
                 gvSeleccionCliente.DataSource = null;
                 gvSeleccionCliente.DataBind();
+            }
+        }
+        catch(Exception ex)
+        {
+            lblError.Text = ex.Message;
+        }
+    }
+
+    protected void btnVer_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if(gvListadoClientes.SelectedRow != null)
+            {
+                Cliente oCli = LogicaCliente.BuscarCliente(Convert.ToInt32(gvListadoClientes.SelectedRow.Cells[1].Text));
+
+                List<Tarjeta> oLista = LogicaTarjeta.TarjetasXCliente(oCli.CI);
+
+                gvSeleccionCliente.DataSource = oLista;
+                gvSeleccionCliente.DataBind();
+
+                lblCliente.Text = oCli.ToString();
             }
         }
         catch(Exception ex)
