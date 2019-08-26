@@ -70,7 +70,7 @@ namespace Persistencia
                     while (oReader.Read())
                     {
                         Credito oCredito = new Credito(Convert.ToInt32(oReader["NroTarj"]), Convert.ToDateTime(oReader["fechaVencimiento"]),
-                            Convert.ToBoolean(oReader["pers"]), Convert.ToInt32(oReader["cat"]), Convert.ToInt32(oReader["credito"]));
+                            Convert.ToInt32(oReader["pers"]), Convert.ToInt32(oReader["cat"]), Convert.ToInt32(oReader["credito"]));
 
                         oLista.Add(oCredito);
                     }
@@ -108,7 +108,7 @@ namespace Persistencia
                     while (oReader.Read())
                     {
                         Credito oCredito = new Credito(Convert.ToInt32(oReader["NroTarj"]), Convert.ToDateTime(oReader["fechaVencimiento"]),
-                            Convert.ToBoolean(oReader["pers"]), Convert.ToInt32(oReader["cat"]), Convert.ToInt32(oReader["credito"]));
+                            Convert.ToInt32(oReader["pers"]), Convert.ToInt32(oReader["cat"]), Convert.ToInt32(oReader["credito"]));
 
                         oLista.Add(oCredito);
                     }

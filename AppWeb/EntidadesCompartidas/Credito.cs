@@ -30,7 +30,7 @@ namespace EntidadesCompartidas
         }
 
         //Constructor
-        public Credito(int pNroTarjeta, DateTime pFechaVencimiento, bool pPersonalizada, int pCategoria, int pCreditoDisponible)
+        public Credito(int pNroTarjeta, DateTime pFechaVencimiento, int pPersonalizada, int pCategoria, int pCreditoDisponible)
             : base(pNroTarjeta, pFechaVencimiento, pPersonalizada)
         {
             Categoria = pCategoria;

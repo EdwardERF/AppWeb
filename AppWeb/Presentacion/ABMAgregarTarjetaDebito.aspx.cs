@@ -21,29 +21,28 @@ public partial class ABMAgregarTarjetaDebito : System.Web.UI.Page
         txtCI.Enabled = true;
         btnAlta.Enabled = true;
 
-        txtCI.Text = "0";
-        txtFechaVencimiento.Text = "";
+        txtCI.Text = "";
         txtPersonalizada.Text = "";
         txtSaldo.Text = "";
         txtCuentasAsociadas.Text = "";
 
-        lblError.Text = "";
+        //lblError.Text = "";
     }
 
     protected void btnAlta_Click(object sender, EventArgs e)
     {
         try
         {
-            Debito oDebito = new Debito(Convert.ToInt32(txtCI.Text), Convert.ToDateTime(txtFechaVencimiento.Text), Convert.ToBoolean(txtPersonalizada.Text), 
+            Debito oDebito = new Debito(Convert.ToInt32(txtCI.Text), Convert.ToDateTime(CalendarioDebito.SelectedDate), Convert.ToInt32(txtPersonalizada.Text), 
                 Convert.ToInt32(txtSaldo.Text), Convert.ToInt32(txtCuentasAsociadas.Text));
 
             lblError.Text = "Alta exitosa";
 
-            this.LimpioFormulario();
         }
         catch (Exception ex)
         {
             lblError.Text = ex.Message;
         }
+            this.LimpioFormulario();
     }
 }

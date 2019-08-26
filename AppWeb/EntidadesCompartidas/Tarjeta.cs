@@ -21,7 +21,7 @@ namespace EntidadesCompartidas
         private int _ci;
         private int _NroTarjeta;
         private DateTime _FechaVencimiento;
-        private bool _Personalizada;
+        private int _Personalizada;
 
         //Propiedades
         public int CI
@@ -42,14 +42,14 @@ namespace EntidadesCompartidas
             set { _FechaVencimiento = value; }
         }
 
-        public bool Personalizada
+        public int Personalizada
         {
             get { return _Personalizada; }
             set { _Personalizada = value; }
         }
 
         //Constructores
-        public Tarjeta(int pCI, int pNroTarjeta, DateTime pFechaVencimiento, bool pPersonalizada)
+        public Tarjeta(int pCI, int pNroTarjeta, DateTime pFechaVencimiento, int pPersonalizada)
         {
             CI = pCI;
             NroTarjeta = pNroTarjeta;
@@ -58,7 +58,7 @@ namespace EntidadesCompartidas
         }
 
         //Constructor sin Identity
-        public Tarjeta(int pCI, DateTime pFechaVencimiento, bool pPersonalizada)
+        public Tarjeta(int pCI, DateTime pFechaVencimiento, int pPersonalizada)
         {
             CI = pCI;
             FechaVencimiento = pFechaVencimiento;

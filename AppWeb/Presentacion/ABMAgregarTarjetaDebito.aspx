@@ -28,21 +28,12 @@
             width: 527px;
             text-align: center;
         }
-        .auto-style4 {
-            height: 33px;
-            width: 14px;
-            text-align: center;
-        }
         .auto-style3 {
             width: 114px;
             text-align: center;
         }
         .auto-style12 {
             width: 527px;
-            text-align: center;
-        }
-        .auto-style10 {
-            width: 14px;
             text-align: center;
         }
         .auto-style8 {
@@ -55,11 +46,7 @@
             height: 35px;
             text-align: center;
         }
-        .auto-style11 {
-            width: 14px;
-            height: 35px;
-        }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -75,7 +62,7 @@
             <tr>
                 <td class="auto-style3">Fecha de Vencimiento:</td>
                 <td class="auto-style12">
-                    <asp:TextBox ID="txtFechaVencimiento" runat="server"></asp:TextBox>
+                    <asp:Calendar ID="CalendarioDebito" runat="server"></asp:Calendar>
                 </td>
             </tr>
             <tr>

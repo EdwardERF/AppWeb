@@ -21,30 +21,30 @@ public partial class ABMAgregarTarjetaCredito : System.Web.UI.Page
         txtCI.Enabled = true;
         btnAlta.Enabled = true;
 
-        txtCI.Text = "0";
-        txtFechaVencimiento.Text = "";
+        txtCI.Text = "";
         txtPersonalizada.Text = "";
         txtCategoria.Text = "";
         txtCreditoDisponible.Text = "";
 
-        lblError.Text = "";
+        //lblError.Text = "";
     }
 
     protected void btnAlta_Click(object sender, EventArgs e)
     {
         try
         {
-            Credito oTarjeta = new Credito(Convert.ToInt32(txtCI.Text), Convert.ToDateTime(txtFechaVencimiento.Text), Convert.ToBoolean(txtPersonalizada.Text), 
+            Credito oTarjeta = new Credito(Convert.ToInt32(txtCI.Text), Convert.ToDateTime(CalendarioCredito.SelectedDate), Convert.ToInt32(txtPersonalizada.Text), 
                 Convert.ToInt32(txtCategoria.Text), Convert.ToInt32(txtCreditoDisponible.Text));
 
             Logica.LogicaTarjeta.Alta(oTarjeta);
+
             lblError.Text = "Alta exitosa";
 
-            this.LimpioFormulario();
         }
         catch(Exception ex)
         {
             lblError.Text = ex.Message;
         }
+            this.LimpioFormulario();
     }
 }
