@@ -16,6 +16,10 @@ public partial class ListadoComprasXCliente : System.Web.UI.Page
         {
             if (!IsPostBack)
                 Session["Lista"] = Logica.LogicaCompra.ListarCompras();
+
+            ddlCliente.DataSource = LogicaCliente.ListarClientes();
+            ddlCliente.DataTextField = "ci";
+            ddlCliente.DataBind();
         }
         catch(Exception ex)
         {
@@ -29,13 +33,19 @@ public partial class ListadoComprasXCliente : System.Web.UI.Page
         {
             if (ddlCliente.SelectedIndex == 0)
             {
+                lblError.Text = "Aun no ha elegido ningun Cliente";
                 Session["Lista"] = Logica.LogicaCompra.ListarCompras();
             }
             else
             {
                 int oCI = ddlCliente.SelectedIndex;
-                gvComprasXCliente.DataSource = Logica.LogicaCompra.ListarComprasXCliente(oCI);
+                gvComprasXCliente.DataSource = LogicaCompra.ListarComprasXCliente(oCI);
                 gvComprasXCliente.DataBind();
+
+                if(gvComprasXCliente == null)
+                {
+                    lblError.Text = "Este Cliente aun no tiene compras";
+                }
             }
         }
         catch(Exception ex)
@@ -46,9 +56,13 @@ public partial class ListadoComprasXCliente : System.Web.UI.Page
 
     protected void ddlCliente_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ddlCliente.DataSource = Logica.LogicaCliente.ListarClientes();
+        List<Cliente> oLista = new List<Cliente>();
+
+        oLista = LogicaCliente.ListarClientes();
+
+        ddlCliente.DataSource = oLista;
         ddlCliente.DataTextField = "ci";
-        ddlCliente.DataValueField = "ci";
+        ddlCliente.DataValueField = "nombre";
         ddlCliente.DataBind();
     }
 }
