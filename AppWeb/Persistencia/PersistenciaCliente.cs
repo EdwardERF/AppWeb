@@ -20,6 +20,7 @@ namespace Persistencia
             oComando.Parameters.AddWithValue("@ci", oCli.CI);
             oComando.Parameters.AddWithValue("@nombre", oCli.Nombre);
             oComando.Parameters.AddWithValue("@apellido", oCli.Apellido);
+            oComando.Parameters.AddWithValue("@telefono", oCli.Telefono);
 
             SqlParameter oParametro = new SqlParameter("@Retorno", SqlDbType.Int);
             oParametro.Direction = ParameterDirection.ReturnValue;
@@ -34,6 +35,8 @@ namespace Persistencia
 
                 if (oAfectados == -1)
                     throw new Exception("Error SQL");
+                else if (oAfectados == 1)
+                    throw new Exception("Alta exitosa");
             }
             catch (Exception ex)
             {
@@ -54,7 +57,7 @@ namespace Persistencia
             oComando.Parameters.AddWithValue("@ci", oCli.CI);
             oComando.Parameters.AddWithValue("@nombre", oCli.Nombre);
             oComando.Parameters.AddWithValue("@apellido", oCli.Apellido);
-            oComando.Parameters.AddWithValue("@numTel", oCli.Telefono);
+            oComando.Parameters.AddWithValue("@telefono", oCli.Telefono);
 
             SqlParameter oParametro = new SqlParameter("@Retorno", SqlDbType.Int);
             oParametro.Direction = ParameterDirection.ReturnValue;
@@ -141,7 +144,7 @@ namespace Persistencia
                     oCI = (int)oReader["ci"];
                     oNombre = (string)oReader["nombre"];
                     oApellido = (string)oReader["apellido"];
-                    oTelefono = (int)oReader["numTel"];
+                    oTelefono = (int)oReader["telefono"];
 
                     oCliente = new Cliente(oCI, oNombre, oApellido, oTelefono);
 
@@ -225,7 +228,7 @@ namespace Persistencia
 
                 if(oReader.Read())
                 {
-                    oTelefono = (int)oReader["numTel"];
+                    oTelefono = (int)oReader["telefono"];
                     oNombre = (string)oReader["nombre"];
                     oApellido = (string)oReader["apellido"];
                     oCli = new Cliente(pCI, oNombre, oApellido, oTelefono);

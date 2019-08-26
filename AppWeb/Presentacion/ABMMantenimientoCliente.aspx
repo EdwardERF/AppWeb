@@ -71,7 +71,7 @@
     <form id="form1" runat="server">
         <div class="auto-style1">
             <span class="Titulo">Mantenimiento de Clientes</span></div>
-        <table align="center" class="auto-style7">
+        <table class="auto-style7">
             <tr>
                 <td class="auto-style2">Cédula:</td>
                 <td class="auto-style5">
@@ -123,7 +123,9 @@
                 <td class="auto-style13">
                     <asp:Label ID="lblError" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style11"></td>
+                <td class="auto-style11">
+                    <asp:Label ID="txtOK" runat="server" Text="Label"></asp:Label>
+                </td>
             </tr>
             <tr>
                 <td class="auto-style8">&nbsp;</td>

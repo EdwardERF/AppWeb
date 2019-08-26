@@ -122,6 +122,7 @@ AS
 	insert Cliente values(@ci, @nombre, @apellido)
 go
 
+exec sp_ModificarCliente 1, 
 create proc sp_ModificarCliente
 @ci int,
 @nombre varchar(30),
@@ -153,20 +154,19 @@ AS
 		return -1 --Esto es, no existe un cliente con esa CI
 go
 
-create proc sp_EliminarCliente
+select * from Cliente where ci = 1
+exec sp_EliminarCliente 1
+alter proc sp_EliminarCliente
 @ci int
 AS
-	declare @NroTarjeta int
-
-	if not exists (select * from Cliente where ci = @ci)
-		return -1
-	
+	if exists (select * from Cliente where ci = @ci)
+	begin
 	if exists (select * from Tarjeta where Tarjeta.ci = @ci)
 	begin
 		if not exists (select * from Compra JOIN Tarjeta ON Compra.NroTarj = Tarjeta.NroTarj where Tarjeta.ci = @ci) --Si no tiene compras
 		begin
-			if exists (select * from Credito C JOIN Tarjeta T ON C.NroTarj = T.NroTarj where T.ci = @ci) OR exists (select * from Debito D JOIN Tarjeta T ON D.NroTarj = T.NroTarj where T.ci = @ci)
-			begin
+			if exists (select * from Credito C JOIN Tarjeta T ON C.NroTarj = T.NroTarj where T.ci = @ci) or exists (select * from Debito D JOIN Tarjeta T ON D.NroTarj = T.NroTarj where T.ci = @ci)
+				begin
 				BEGIN TRAN
 				delete Credito from Credito C JOIN Tarjeta T ON C.NroTarj = T.NroTarj where T.ci = @ci
 				if @@ERROR <> 0
@@ -180,7 +180,9 @@ AS
 						rollback tran
 						return -9
 					end
-
+				COMMIT TRAN
+				return 1
+				end
 				delete Tarjeta where Tarjeta.ci = @ci
 				if @@ERROR <> 0
 					begin
@@ -188,47 +190,36 @@ AS
 						return -9
 					end
 				------
-				delete Telefono where ci = @ci
-				if @@ERROR <> 0
-					begin
-						rollback tran
-						return -3
-					end
 				delete Cliente where ci = @ci
 				if @@ERROR <> 0
 					begin
 						rollback tran
 						return -3
 					end
-				COMMIT TRAN
-				return 1
+				
 			end
 			else 
 				return -2 --No tiene tarjetas para eliminar
 		end
+		else if not exists (select * from Tarjeta where ci = @ci)
+		begin
+			BEGIN TRAN
+			delete Cliente where ci = @ci
+			if @@ERROR <> 0
+				begin
+					rollback tran
+					return -3
+				end
+			COMMIT TRAN
+			return 1
+		end
 		else
 			return -3 --No se puede borrar porque tiene compras
 	end
+	else
+		return -1
 go
 
---Pruebas 
---Eliminacion exitosa (con varias tarjetas ligadas a la CI)
-declare @RET int
-exec @RET = sp_EliminarCliente 11111111
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
---CI no existente
-declare @RET int
-exec @RET = sp_EliminarCliente 12312312
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
---Tiene compras existentes
-declare @RET int
-exec @RET = sp_EliminarCliente 33333333
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_ListarClientes
 AS
@@ -370,29 +361,6 @@ AS
 		return -2
 go
 
---Pruebas
---Exitosas
-declare @RET int
-exec @RET = sp_AgregarCompra 3, 1000
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
-declare @RET int
-exec @RET = sp_AgregarCompra 3, 500
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
---Saldo/Credito insuficiente:
-declare @RET int
-exec @RET = sp_AgregarCompra 5, 1000000
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
---Tarjeta vencida / Tarjeta inexistente
-declare @RET int
-exec @RET = sp_AgregarCompra 20, 1000
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_BuscarCompra
 @ci int
@@ -412,12 +380,6 @@ AS
 		return -1 --ESTO ES UN ERROR SQL
 go
 
---Pruebas
-declare @RET int
-exec @RET = sp_TotalCompras 66666666, 2019
-print 'Resultado: ' + convert(varchar(5), @RET)
-go
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_ListarCompras
 AS
@@ -434,11 +396,6 @@ AS
 	select @RET = count(*) from Compra
 	where FechaCompra between @FechaFin and @FechaIni
 	return @RET
-go
-
-declare @RET int
-exec @RET = sp_TotalVentas '31/12/2019','01/01/2019'
-print 'Resultado: ' + convert(varchar(20), @RET)
 go
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

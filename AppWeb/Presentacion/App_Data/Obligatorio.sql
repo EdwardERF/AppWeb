@@ -1,3 +1,12 @@
+﻿use master
+go
+
+if exists(Select * FROM SysDataBases WHERE name='Obligatorio')
+BEGIN
+	DROP DATABASE Obligatorio
+END
+go
+
 create database Obligatorio
 go
 
@@ -11,14 +20,8 @@ create table Cliente
 (
 	ci int primary key,
 	nombre varchar(30) not null,
-	apellido varchar(30)
-)
-go
-
-create table Telefono
-(
-	numTel int primary key,
-	ci int not null foreign key references Cliente(ci)
+	apellido varchar(30),
+	telefono int
 )
 go
 
@@ -34,7 +37,7 @@ go
 create table Credito
 (
 	NroTarj int not null primary key foreign key references Tarjeta(NroTarj),
-	cat bit not null,
+	cat int not null,
 	credito int not null
 )
 go
@@ -42,7 +45,7 @@ go
 create table Debito
 (
 	NroTarj int not null primary key foreign key references Tarjeta(NroTarj), --Es FK de Tarjeta, al mismo tiempo que es PK de esta entidad
-	CantCuentAsoc tinyint not null,
+	CantCuentAsoc int not null,
 	saldo int not null
 )
 go
@@ -58,26 +61,15 @@ go
 
 --Carga de datos
 
-insert Cliente values(11111111,'Andres','Sueto'),
-(22222222,'Lucas','Perez'),
-(33333333,'Anibal','Suarez'),
-(44444444,'Roberto','Bolaños'),
-(55555555,'Joaquin','Sabina'),
-(66666666,'Alberto','Rodriguez'),
-(77777777,'Sergio','Vazquez'),
-(88888888,'Leticia','Sosa'),
-(99999999,'Julia','Perez')
-go
-
-insert Telefono values(29000001,11111111),
-(29000002,22222222),
-(98111222,33333333),
-(29000003,44444444),
-(98222333,55555555),
-(98333444,66666666),
-(98222444,77777777),
-(29000004,88888888),
-(47241340,99999999)
+insert Cliente values(11111111,'Andres','Sueto', 29000001),
+(22222222,'Lucas','Perez', 29000002),
+(33333333,'Anibal','Suarez', 98111222),
+(44444444,'Roberto','Bolaños', 29000003),
+(55555555,'Joaquin','Sabina', 98222333),
+(66666666,'Alberto','Rodriguez', 98333444),
+(77777777,'Sergio','Vazquez', 98222444),
+(88888888,'Leticia','Sosa', 29000004),
+(99999999,'Julia','Perez', 47241340)
 go
 
 insert Tarjeta values(11111111,'20/05/2021',0),
@@ -112,98 +104,193 @@ go
 
 -------------------------------------------------------------------------------
 --Creacion de procesos almacenados
+
+create proc sp_AgregarCliente
+@ci int,
+@nombre varchar(30),
+@apellido varchar(30),
+@telefono int
+AS
+	insert Cliente values(@ci, @nombre, @apellido, @telefono)
+	if @@ERROR <> 0
+		return -1 --Esto es, error SQL
+	return 1 --Esto es, Alta exitosa
+go
+
+create proc sp_ModificarCliente
+@ci int,
+@nombre varchar(30),
+@apellido varchar(30),
+@telefono int
+AS
+	if exists (select * from Cliente where ci = @ci)
+	begin
+		BEGIN TRAN
+		update Cliente set nombre = @nombre, apellido = @apellido, telefono = @telefono
+		where ci = @ci
+		if (@@ERROR<>0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+		COMMIT TRAN
+		return 1 --Esto es, modificacion exitosa
+	end
+	else
+		return -1 --Esto es, no existe un cliente con esa CI
+go
+
 create proc sp_EliminarCliente
 @ci int
 AS
-	declare @NroTarjeta int
-	select @NroTarjeta = NroTarj from Tarjeta where Tarjeta.ci = @ci
-	if exists (select * from Compra C INNER JOIN Tarjeta T ON C.NroTarj = T.NroTarj where ci = @ci)
-		return -2
-	else if not exists (select * from Cliente where ci = @ci)
-		return -1
-	else if not exists (select NroTarj from Compra where NroTarj = @NroTarjeta) and exists (select * from Cliente where ci = @ci)
+	if exists (select * from Cliente where ci = @ci)
+	begin
+	if exists (select * from Tarjeta where Tarjeta.ci = @ci)
+	begin
+		if not exists (select * from Compra JOIN Tarjeta ON Compra.NroTarj = Tarjeta.NroTarj where Tarjeta.ci = @ci) --Si no tiene compras
 		begin
-			begin tran
-				delete Compra where NroTarj = @NroTarjeta
+			if exists (select * from Credito C JOIN Tarjeta T ON C.NroTarj = T.NroTarj where T.ci = @ci) OR exists (select * from Debito D JOIN Tarjeta T ON D.NroTarj = T.NroTarj where T.ci = @ci)
+			begin
+				BEGIN TRAN
+				delete Credito from Credito C JOIN Tarjeta T ON C.NroTarj = T.NroTarj where T.ci = @ci
 				if @@ERROR <> 0
 					begin
 						rollback tran
-						return -3
+						return -9
 					end
-				declare @i int
-				set @i = 1
-				declare @cont int
-				set @cont = IDENT_CURRENT('Tarjeta')
-				while (@i <= @cont)
+				delete Debito from Debito D JOIN Tarjeta T ON D.NroTarj = T.NroTarj where T.ci = @ci
+				if @@ERROR <> 0
 					begin
-						if exists (select * from Tarjeta T INNER JOIN Credito C ON T.NroTarj = C.NroTarj where ci = @ci)
-							begin
-								delete Credito where NroTarj = (select T.NroTarj from Tarjeta T INNER JOIN Credito C ON T.NroTarj = C.NroTarj where ci = @ci) 
-								if @@ERROR <> 0
-									begin
-										rollback tran
-										return -3
-									end
-								set @i = @i + 1
-							end
-						else if exists (select * from Tarjeta T INNER JOIN  Debito D ON T.NroTarj = D.NroTarj where ci = @ci)
-							begin
-								delete Debito where NroTarj = (select T.NroTarj from Tarjeta T INNER JOIN Debito D ON T.NroTarj = D.NroTarj where ci = @ci)
-								if @@ERROR <> 0
-									begin
-										rollback tran
-										return -3
-									end
-								set @i = @i + 1
-							end
-						else
-							set  @i = @i + 1
+						rollback tran
+						return -9
 					end
-				delete Tarjeta where NroTarj = @NroTarjeta
+				COMMIT TRAN
+				return 1
+				end
+				delete Tarjeta where Tarjeta.ci = @ci
 				if @@ERROR <> 0
 					begin
 						rollback tran
 						return -9
 					end
 				------
-				delete Telefono where ci = @ci
-				if @@ERROR <> 0
-					begin
-						rollback tran
-						return -3
-					end
 				delete Cliente where ci = @ci
 				if @@ERROR <> 0
 					begin
 						rollback tran
 						return -3
 					end
-			commit tran
-		return 1
+			end
+			else 
+				return -2 --No tiene tarjetas para eliminar
 		end
+		else if not exists (select * from Tarjeta where ci = @ci)
+		begin
+			BEGIN TRAN
+				delete Cliente where ci = @ci
+				if @@ERROR <> 0 
+					begin
+						rollback tran
+						return -3
+					end
+			COMMIT TRAN
+			return 1
+		end
+		else
+			return -3 --No se puede borrar porque tiene compras
+	end
+	else
+		return -1
 go
 
---Pruebas
---Eliminacion exitosa (con varias tarjetas ligadas a la CI)
-declare @RET int
-exec @RET = sp_EliminarCliente 11111111
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
---CI no existente
-declare @RET int
-exec @RET = sp_EliminarCliente 12312312
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
---Tiene compras existentes
-declare @RET int
-exec @RET = sp_EliminarCliente 33333333
-print 'Resultado: ' + convert(varchar(5),@RET)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create proc sp_ListarClientes
+AS
+	select * from Cliente
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create proc sp_BuscarCliente
+@ci int
+AS
+	select * from Cliente where ci = @ci
+go
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create proc sp_AgregarTarjetaCredito
+@ci int,
+@fechaVencimiento datetime,
+@pers bit,
+
+@cat int,
+@credito int
+AS
+	if not exists (select * from Cliente where ci = @ci)
+		return -1 --Esto es, no existe cliente
+	else
+	begin
+		declare @NroTarj int
+		BEGIN TRAN
+			insert Tarjeta values(@ci, @fechaVencimiento, @pers)
+			if (@@ERROR <> 0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+			set @NroTarj = @@IDENTITY
+			insert Credito values(@NroTarj, @cat, @credito)
+			if (@@ERROR <> 0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+		COMMIT TRAN
+		return 1 --Esto es, operacion exitosa
+	end
+go
+
+create proc sp_AgregarTarjetaDebito
+@ci int,
+@fechaVencimiento datetime,
+@pers bit,
+
+@CantCuentAsoc int,
+@saldo int
+AS
+	if not exists (select * from Cliente where ci = @ci)
+		return -1 --Esto es, no existe cliente
+	else
+	begin
+		declare @NroTarj int
+		BEGIN TRAN
+			insert Tarjeta values(@ci, @fechaVencimiento, @pers)
+			if (@@ERROR <> 0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+			set @NroTarj = @@IDENTITY
+			insert Debito values(@NroTarj, @CantCuentAsoc, @saldo)
+			if (@@ERROR <> 0)
+			begin
+				rollback tran
+				return -2 --Esto es, error de transaccion
+			end
+		COMMIT TRAN
+		return 1 --Esto es, operacion exitosa
+	end
+go
+
+create proc sp_TotalClientes
+AS
+	if exists (select * from Cliente)
+		select * from Cliente
+	else
+		return -1 --Esto es, aun no hay clientes cargados en el sistema
+go
+
 create proc sp_AgregarCompra
 @NumTarjeta int,
+@FechaCompra datetime,
 @ImporteCompra int
 AS
 	if exists (select @NumTarjeta from Credito where credito < @ImporteCompra) OR exists (select @NumTarjeta from Debito where saldo < @ImporteCompra)
@@ -212,12 +299,12 @@ AS
 	end
 	else if exists (select * from Tarjeta where NroTarj = @NumTarjeta) and not exists (select * from Tarjeta where NroTarj = @NumTarjeta and fechaVencimiento < getdate()) --Si existe NumTarj se puede avanzar AND Tarjeta no esta vencida
 		begin
-			begin tran
 				if exists (select * from Credito where NroTarj = @NumTarjeta) --Averiguo si es tarjeta de credito
 					begin
 						if exists (select @NumTarjeta from Credito where credito >= @ImporteCompra) --Chequeo que tenga saldo
 							begin
-								insert Compra values(@NumTarjeta, getdate(), @ImporteCompra)
+								BEGIN TRAN
+								insert Compra values(@NumTarjeta, @FechaCompra, @ImporteCompra)
 								if @@ERROR <> 0
 									begin
 										rollback tran
@@ -229,10 +316,13 @@ AS
 										rollback tran
 										return -1
 									end
+								COMMIT TRAN
+								return 1
 							end
 						else if exists (select @NumTarjeta from Debito where saldo >= @ImporteCompra) --Chequeo que tenga saldo
 							begin
-								insert Compra values(@NumTarjeta, getdate(), @ImporteCompra)
+								BEGIN TRAN
+								insert Compra values(@NumTarjeta, @FechaCompra, @ImporteCompra)
 								if @@ERROR <> 0
 									begin
 										rollback tran
@@ -244,67 +334,42 @@ AS
 										rollback tran
 										return -1
 									end
+								COMMIT TRAN
+								return 1
 							end
 					end
-			commit tran
 			return 1
 		end
 	else
 		return -2
 go
 
-/*
-REFERENCIAS DE ERRORES
-return -1: Saldo/Credito insuficiente
-return  1: Compra agregada exitosamente
-return -2: La tarjeta esta vencida | La tarjeta no existe.
-*/
-
---Pruebas
---Exitosas
-declare @RET int
-exec @RET = sp_AgregarCompra 3, 1000
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
-declare @RET int
-exec @RET = sp_AgregarCompra 3, 500
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
---Saldo/Credito insuficiente:
-declare @RET int
-exec @RET = sp_AgregarCompra 5, 1000000
-print 'Resultado: ' + convert(varchar(5),@RET)
-go
-
---Tarjeta vencida / Tarjeta inexistente
-declare @RET int
-exec @RET = sp_AgregarCompra 20, 1000
-print 'Resultado: ' + convert(varchar(5),@RET)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create proc sp_BuscarCompra
+@ci int
+AS
+	select * from Compra INNER JOIN Tarjeta ON Compra.NroTarj = Tarjeta.NroTarj where Tarjeta.ci = @ci
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-create proc sp_TotalCompras
-@ci int,
-@año int
+create proc sp_TotalComprasXCliente --ESTE ES EL SP DE TOTAL COMPRAS POR CLIENTE
+@ci int
 AS
 	if exists (select * from Cliente where ci = @ci)
 		begin
-			declare @RET int
-			select @RET = count(*) from Tarjeta T INNER JOIN Compra C ON T.NroTarj = C.NroTarj
-			where ci = @ci and year(FechaCompra) = @año
-			return @RET
+			select * from Tarjeta T INNER JOIN Compra C ON T.NroTarj = C.NroTarj
+			where ci = @ci
 		end
 	else
-		return -1
+		return -1 --ESTO ES UN ERROR SQL
 go
 
---Pruebas
-declare @RET int
-exec @RET = sp_TotalCompras 66666666, 2019
-print 'Resultado: ' + convert(varchar(5), @RET)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create proc sp_ListarCompras
+AS
+	select * from Compra
+	if(@@ERROR<>0)
+		return -1 --Esto es, error SQL
 go
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_TotalVentas
 @FechaIni datetime,
@@ -316,21 +381,65 @@ AS
 	return @RET
 go
 
-declare @RET int
-exec @RET = sp_TotalVentas '31/12/2019','01/01/2019'
-print 'Resultado: ' + convert(varchar(20), @RET)
-go
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-create proc sp_ClientesNoRentables
+
+create proc sp_TarjetasVencidas
 AS
-	select top 3 ci
-	from Tarjeta T INNER JOIN Compra C ON T.NroTarj = C.NroTarj 
-	where year(FechaCompra) = year(getdate())
-	group by ci
-	order by count(NroCompra) asc
-go
-
-exec sp_ClientesNoRentables
+	if exists (select * from Tarjeta)
+	begin
+		select * from Tarjeta
+		where fechaVencimiento < GETDATE()
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas cargadas en el sistema
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create proc sp_CreditoVencidas
+AS
+	if exists (select * from Tarjeta)
+	begin
+		select * from Tarjeta T INNER JOIN Credito C ON T.NroTarj = C.NroTarj
+		where fechaVencimiento < GETDATE()
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas cargadas en el sistema
+go
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create proc sp_DebitoVencidas
+AS
+	if exists (select * from Tarjeta)
+	begin
+		select * from Tarjeta T INNER JOIN Debito D ON T.NroTarj = D.NroTarj
+		where fechaVencimiento < GETDATE()
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas cargadas en el sistema
+go
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create proc sp_CreditoXCliente
+@ci int
+AS
+	if exists(select * from Credito)
+	begin
+		select * from Tarjeta T INNER JOIN Credito C ON T.NroTarj = C.NroTarj
+		where ci = @ci
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas de credito cargadas en el sistema
+go
+
+create proc sp_DebitoXCliente
+@ci int
+AS
+	if exists(select * from Debito)
+	begin
+		select * from Tarjeta T INNER JOIN Debito D ON T.NroTarj = D.NroTarj
+		where ci = @ci
+	end
+	else
+		return -1 --Esto es, aun no existen tarjetas de debito cargadas en el sistema
+go

@@ -31,6 +31,9 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
         btnBuscar.Enabled = false;
 
         txtCI.Enabled = false;
+        txtNombre.Enabled = true;
+        txtApellido.Enabled = true;
+        txtTelefono.Enabled = true;
     }
 
     protected void ActivoBotonesA()
@@ -55,10 +58,12 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
 
         txtCI.Enabled = true;
 
-        txtCI.Text = "0";
+        txtCI.Text = "";
         txtNombre.Text = "";
+        txtApellido.Text = "";
+        txtTelefono.Text = "";
 
-        lblError.Text = "";
+        //lblError.Text = "";
     }
 
     protected void btnBuscar_Click(object sender, EventArgs e)
@@ -66,21 +71,25 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
         try
         {
             int oCI = Convert.ToInt32(txtCI.Text);
+            
             Cliente oCli = Logica.LogicaCliente.BuscarCliente(oCI);
 
-            if (oCli == null)
-            {
-                this.ActivoBotonesA();
-                Session["ClienteABM"] = null;
-            }
-            else
+            if (oCli != null)
             {
                 this.ActivoBotonesBM();
-                Session["ClienteABM"] = oCli;
 
                 txtNombre.Text = oCli.Nombre;
                 txtApellido.Text = oCli.Apellido;
-                txtTelefono.Text = oCli.Apellido;
+                txtTelefono.Text = Convert.ToString(oCli.Telefono);
+                
+                Session["ClienteABM"] = oCli;
+
+                lblError.Text = "";
+            }
+            else
+            {
+                this.ActivoBotonesA();
+                Session["ClienteABM"] = null;
             }
         }
         catch(Exception ex)
@@ -97,8 +106,8 @@ public partial class ABMMantenimientoCliente : System.Web.UI.Page
 
             Logica.LogicaCliente.Alta(oCli);
             lblError.Text = "Alta exitosa";
-
             this.LimpioFormulario();
+
         }
         catch (Exception ex)
         {

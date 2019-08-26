@@ -2,11 +2,9 @@ RNE:
 - Categoria (Tarjeta Credito) : Tiene solo 4 valores posibles (1, 2, 3, 4)
 //Chequear otras RNE
 
-
 //Chequear todas las condicionales, de todos los atributos
-//Renombrar los SP creados en ADO
 
 //Hacer chequeo general de todo
 
-
-(SP NO USADO EN OBLIGATORIO - Clientes menos rentables - Se eliminó)
+--------------------------------------
+Haciendo:
