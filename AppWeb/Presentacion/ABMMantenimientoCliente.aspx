@@ -9,6 +9,8 @@
     <style type="text/css">
         .auto-style1 {
             text-align: center;
+            font-family: calibri;
+            color: #CCFFFF;
         }
         .Titulo {
             font-family: calibri;
@@ -21,6 +23,7 @@
             width: 114px;
             height: 33px;
             text-align: center;
+            color: #CCFFFF;
         }
         .auto-style3 {
             width: 114px;
@@ -65,15 +68,20 @@
             height: 35px;
             text-align: center;
         }
+        .auto-style14 {
+            width: 114px;
+            text-align: center;
+            color: #CCFFFF;
+        }
     </style>
 </head>
-<body>
+<body bgcolor="#488FCB">
     <form id="form1" runat="server">
         <div class="auto-style1">
-            <span class="Titulo">Mantenimiento de Clientes</span></div>
+            Mantenimiento de Clientess</div>
         <table class="auto-style7">
             <tr>
-                <td class="auto-style2">Cédula:</td>
+                <td class="auto-style2">Cédula:Cédula:</td>
                 <td class="auto-style5">
                     <asp:TextBox ID="txtCI" runat="server"></asp:TextBox>
                 </td>
@@ -82,21 +90,21 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style3">Nombre:</td>
+                <td class="auto-style14">Nombre:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
                 </td>
                 <td class="auto-style10">&nbsp;</td>
             </tr>
             <tr>
-                <td class="auto-style3">Apellido/s:</td>
+                <td class="auto-style14">Apellido/s:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtApellido" runat="server"></asp:TextBox>
                 </td>
                 <td class="auto-style10">&nbsp;</td>
             </tr>
             <tr>
-                <td class="auto-style3">Teléfono:</td>
+                <td class="auto-style14">Teléfono:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtTelefono" runat="server"></asp:TextBox>
                 </td>
@@ -121,16 +129,15 @@
             <tr>
                 <td class="auto-style8"></td>
                 <td class="auto-style13">
-                    <asp:Label ID="lblError" runat="server"></asp:Label>
+                    <asp:Label ID="lblError" runat="server" ForeColor="#E6E7E8"></asp:Label>
                 </td>
                 <td class="auto-style11">
-                    <asp:Label ID="txtOK" runat="server" Text="Label"></asp:Label>
-                </td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="auto-style8">&nbsp;</td>
                 <td class="auto-style13">
-                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx" ForeColor="#E6E7E8">Volver</asp:LinkButton>
                 </td>
                 <td class="auto-style11">&nbsp;</td>
             </tr>

@@ -16,26 +16,29 @@
         .auto-style2 {
             width: 100%;
         }
+        .auto-style3 {
+            color: #CCFFFF;
+        }
     </style>
 </head>
-<body class="calibri">
+<body bgcolor="#488FCB" class="calibri">
     <form id="form1" runat="server">
         <div class="auto-style1">
         <div class="auto-style1">
-            Agregar Tarjeta<br />
+            <span class="auto-style3">Agregar Tarjeta</span><br />
         </div>
         <table class="auto-style2">
             <tr>
                 <td class="auto-style1">
-                    <asp:LinkButton ID="lbtnCredito" runat="server" PostBackUrl="~/ABMAgregarTarjetaCredito.aspx">Crédito</asp:LinkButton>
+                    <asp:LinkButton ID="lbtnCredito" runat="server" PostBackUrl="~/ABMAgregarTarjetaCredito.aspx" ForeColor="#E6E7E8">Crédito</asp:LinkButton>
                 </td>
                 <td class="auto-style1">
-                    <asp:LinkButton ID="lbtnDebito" runat="server" PostBackUrl="~/ABMAgregarTarjetaDebito.aspx">Débito</asp:LinkButton>
+                    <asp:LinkButton ID="lbtnDebito" runat="server" PostBackUrl="~/ABMAgregarTarjetaDebito.aspx" ForeColor="#E6E7E8">Débito</asp:LinkButton>
                 </td>
             </tr>
         </table>
             <br />
-            <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+            <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx" ForeColor="#E6E7E8">Volver</asp:LinkButton>
         </div>
     </form>
 </body>

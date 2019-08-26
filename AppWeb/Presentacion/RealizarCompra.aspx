@@ -13,6 +13,7 @@
         .auto-style1 {
             font-family: Calibri;
             text-align: center;
+            color: #CCFFFF;
         }
         .auto-style7 {
             font-family: calibri;
@@ -23,6 +24,7 @@
             width: 114px;
             height: 33px;
             text-align: center;
+            color: #CCFFFF;
         }
         .auto-style5 {
             height: 33px;
@@ -47,9 +49,14 @@
             height: 35px;
             text-align: center;
         }
+        .auto-style14 {
+            width: 114px;
+            text-align: center;
+            color: #CCFFFF;
+        }
     </style>
 </head>
-<body>
+<body bgcolor="#488FCB">
     <form id="form1" runat="server">
         <div class="auto-style1">
             Realizar Compra</div>
@@ -61,15 +68,15 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style3">Importe:</td>
+                <td class="auto-style14">Importe:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtImporte" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style3">Fecha</td>
+                <td class="auto-style14">Fecha</td>
                 <td class="auto-style12">
-                    <asp:Calendar ID="CalFechaCompra" runat="server"></asp:Calendar>
+                    <asp:Calendar ID="CalFechaCompra" runat="server" ForeColor="#E6E7E8"></asp:Calendar>
                 </td>
             </tr>
             <tr>
@@ -93,13 +100,13 @@
             <tr>
                 <td class="auto-style8"></td>
                 <td class="auto-style13">
-                    <asp:Label ID="lblError" runat="server"></asp:Label>
+                    <asp:Label ID="lblError" runat="server" ForeColor="#E6E7E8"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style8">&nbsp;</td>
                 <td class="auto-style13">
-                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx" ForeColor="#E6E7E8">Volver</asp:LinkButton>
                 </td>
             </tr>
         </table>

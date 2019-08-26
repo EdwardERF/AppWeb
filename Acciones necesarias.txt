@@ -1,10 +1,9 @@
+Color fondo: #488FCB
+Color letras: #E6E7E8
+Color titulo: 
+
 RNE: 
 - Categoria (Tarjeta Credito) : Tiene solo 4 valores posibles (1, 2, 3, 4)
 //Chequear otras RNE
 
 //Chequear todas las condicionales, de todos los atributos
-
-//Hacer chequeo general de todo
-
---------------------------------------
-Haciendo:

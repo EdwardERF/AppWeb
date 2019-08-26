@@ -13,12 +13,15 @@
         .auto-style1 {
             text-align: center;
         }
+        .auto-style2 {
+            color: #CCFFFF;
+        }
     </style>
 </head>
-<body class="nuevoEstilo1">
+<body bgcolor="#488FCB">
     <form id="form1" runat="server">
         <div class="auto-style1">
-            Listado de Tarjetas Vencidas<br />
+            <span class="auto-style2">Listado de Tarjetas Vencidas</span><br />
             Tipo:
             <asp:DropDownList ID="ddlTipoTarjeta" runat="server">
             </asp:DropDownList>
@@ -26,13 +29,13 @@
             <asp:Button ID="btnListar" runat="server" OnClick="btnListar_Click" Text="Listar" />
             <br />
             <br />
-            <asp:GridView ID="gvTarjetasVencidas" runat="server">
+            <asp:GridView ID="gvTarjetasVencidas" runat="server" ForeColor="#E6E7E8">
             </asp:GridView>
             <br />
-            <asp:Label ID="lblError" runat="server"></asp:Label>
+            <asp:Label ID="lblError" runat="server" ForeColor="#E6E7E8"></asp:Label>
             <br />
             <br />
-            <asp:LinkButton ID="lbtnVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+            <asp:LinkButton ID="lbtnVolver" runat="server" PostBackUrl="~/Default.aspx" ForeColor="#E6E7E8">Volver</asp:LinkButton>
         </div>
     </form>
 </body>

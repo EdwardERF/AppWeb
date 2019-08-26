@@ -20,48 +20,51 @@
         .auto-style3 {
             text-align: left;
         }
+        .auto-style4 {
+            color: #CCFFFF;
+        }
     </style>
 </head>
-<body>
+<body bgcolor="#488FCB">
     <form id="form1" runat="server">
         <div class="auto-style1">
-            Listado de Clientes<div>
+            <span class="auto-style4">Listado de Clientes</span><div>
                 <br />
                 <table class="auto-style2">
                     <tr>
-                        <td>Totalidad de Clientes</td>
+                        <td class="auto-style4">Totalidad de Clientes</td>
                         <td>
-                <asp:GridView ID="gvListadoClientes" runat="server" Height="197px" Width="456px" AutoGenerateSelectButton="True">
+                <asp:GridView ID="gvListadoClientes" runat="server" Height="197px" Width="456px" AutoGenerateSelectButton="True" ForeColor="#E6E7E8">
                 </asp:GridView>
                             <div class="auto-style3">
                                 <br />
                                 <asp:Button ID="btnVer" runat="server" OnClick="btnVer_Click" Text="Ver detalles" />
                                 <br />
                                 <br />
-                                Detalles de Cliente:
-                                <asp:Label ID="lblCliente" runat="server"></asp:Label>
+                                <span class="auto-style4">Detalles de Cliente:</span>
+                                <asp:Label ID="lblCliente" runat="server" ForeColor="#E6E7E8"></asp:Label>
                                 <br />
                                 <br />
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td>Detalles de un Cliente</td>
+                        <td class="auto-style4">Detalles de un Cliente</td>
                         <td>
-                <asp:GridView ID="gvSeleccionCliente" runat="server" Height="197px" Width="456px">
+                <asp:GridView ID="gvSeleccionCliente" runat="server" Height="197px" Width="456px" ForeColor="#E6E7E8">
                 </asp:GridView>
                         </td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                <asp:Label ID="lblError" runat="server"></asp:Label>
+                <asp:Label ID="lblError" runat="server" ForeColor="#E6E7E8"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx">Volver</asp:LinkButton>
+                            <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/Default.aspx" ForeColor="#E6E7E8">Volver</asp:LinkButton>
                         </td>
                     </tr>
                 </table>

@@ -9,6 +9,8 @@
     <style type="text/css">
         .auto-style1 {
             text-align: center;
+            font-family: calibri;
+            color: #CCFFFF;
         }
         .nuevoEstilo1 {
             font-family: calibri;
@@ -22,6 +24,7 @@
             width: 114px;
             height: 33px;
             text-align: center;
+            color: #CCFFFF;
         }
         .auto-style5 {
             height: 33px;
@@ -46,12 +49,17 @@
             height: 35px;
             text-align: center;
         }
+        .auto-style14 {
+            width: 114px;
+            text-align: center;
+            color: #CCFFFF;
+        }
         </style>
 </head>
-<body>
+<body bgcolor="#488FCB">
     <form id="form1" runat="server">
         <div class="auto-style1">
-            <span class="nuevoEstilo1">Agregar Tarjeta de Debito</span></div>
+            Agregar Tarjeta de Debito</div>
         <table align="center" class="auto-style7">
             <tr>
                 <td class="auto-style2">Cédula:</td>
@@ -60,25 +68,25 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style3">Fecha de Vencimiento:</td>
+                <td class="auto-style14">Fecha de Vencimiento:</td>
                 <td class="auto-style12">
-                    <asp:Calendar ID="CalendarioDebito" runat="server"></asp:Calendar>
+                    <asp:Calendar ID="CalendarioDebito" runat="server" ForeColor="#E6E7E8"></asp:Calendar>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style3">Personalizada:</td>
+                <td class="auto-style14">Personalizada:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtPersonalizada" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style3">Saldo:</td>
+                <td class="auto-style14">Saldo:</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtSaldo" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style3">Cantidad de Cuentas Asociadas</td>
+                <td class="auto-style14">Cantidad de Cuentas Asociadas</td>
                 <td class="auto-style12">
                     <asp:TextBox ID="txtCuentasAsociadas" runat="server"></asp:TextBox>
                 </td>
@@ -97,16 +105,16 @@
             <tr>
                 <td class="auto-style8"></td>
                 <td class="auto-style13">
-                    <asp:Label ID="lblError" runat="server"></asp:Label>
+                    <asp:Label ID="lblError" runat="server" ForeColor="#E6E7E8"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style8">&nbsp;</td>
                 <td class="auto-style13">
-                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/ABMAgregarTarjeta.aspx">Volver</asp:LinkButton>
+                    <asp:LinkButton ID="lbVolver" runat="server" PostBackUrl="~/ABMAgregarTarjeta.aspx" ForeColor="#E6E7E8">Volver</asp:LinkButton>
                     <br />
                     <br />
-                    <asp:LinkButton ID="lbMenuPrincipal" runat="server" PostBackUrl="~/Default.aspx">Menu Principal</asp:LinkButton>
+                    <asp:LinkButton ID="lbMenuPrincipal" runat="server" PostBackUrl="~/Default.aspx" ForeColor="#E6E7E8">Menu Principal</asp:LinkButton>
                 </td>
             </tr>
         </table>
