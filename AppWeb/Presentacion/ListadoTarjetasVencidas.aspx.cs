@@ -46,16 +46,34 @@ public partial class ListadoTarjetasVencidas : System.Web.UI.Page
         {
             gvTarjetasVencidas.DataSource = LogicaTarjeta.ListarVencidas();
             gvTarjetasVencidas.DataBind();
+            lblError.Text = "";
+
+            if (gvTarjetasVencidas.PageCount == 0)
+            {
+                lblError.Text = "No existen tarjetas vencidas";
+            }
         }
         else if(Tipo == 1)
         {
             gvTarjetasVencidas.DataSource = Logica.LogicaTarjeta.ListarVencidasCredito();
             gvTarjetasVencidas.DataBind();
+            lblError.Text = "";
+
+            if (gvTarjetasVencidas.PageCount == 0)
+            {
+                lblError.Text = "No existen tarjetas de credito vencidas";
+            }
         }
         else if(Tipo == 2)
         {
             gvTarjetasVencidas.DataSource = Logica.LogicaTarjeta.ListarVencidasDebito();
             gvTarjetasVencidas.DataBind();
+            lblError.Text = "";
+
+            if (gvTarjetasVencidas.PageCount == 0)
+            {
+                lblError.Text = "No existen tarjetas de debito vencidas";
+            }
         }
     }
 }

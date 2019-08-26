@@ -29,7 +29,6 @@
             <asp:GridView ID="gvTarjetasVencidas" runat="server">
             </asp:GridView>
             <br />
-            <br />
             <asp:Label ID="lblError" runat="server"></asp:Label>
             <br />
             <br />
