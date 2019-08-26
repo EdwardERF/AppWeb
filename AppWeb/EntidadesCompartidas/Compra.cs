@@ -35,14 +35,25 @@ namespace EntidadesCompartidas
 
         public int ImporteCompra
         {
+            set {
+                if (_ImporteCompra > 0)
+                    _ImporteCompra = value;
+                else
+                    throw new Exception("La compra debe tener un valor");
+                   
+                }
             get { return _ImporteCompra; }
-            set { _ImporteCompra = value; }
         }
 
         public DateTime FechaCompra
         {
+            set {
+                if (_FechaCompra != null)
+                    _FechaCompra = value;
+                else
+                    throw new Exception("Le ha faltado ingresar una fecha");
+                }
             get { return _FechaCompra; }
-            set { _FechaCompra = value; }
         }
 
         //Constructor

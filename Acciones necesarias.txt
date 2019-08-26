@@ -1,9 +1,40 @@
 Color fondo: #488FCB
 Color letras: #E6E7E8
-Color titulo: 
+
+-----------------------
+Lo que aun falta:
+- Agregar condiciones a las clases
+- Datos de prueba
+- Chequear que ande todo en VS 2O10
+- UML
+- MER?
+- Diagrama de arquitectura en 3 capas
+- Chequear todos los errores con excepciones (Exception ex) - throw new Exception
+- Sql Actualizado en carpeta de Base de datos (no es la misma que AppData)
+- DER!!!
+- 
+-----------------------
 
 RNE: 
 - Categoria (Tarjeta Credito) : Tiene solo 4 valores posibles (1, 2, 3, 4)
 //Chequear otras RNE
 
 //Chequear todas las condicionales, de todos los atributos
+Clase Cliente:
+	- ci debe ser mayor que 9999999 y menor que 100000000 HECHO
+	- telefono debe ser mayor que 5 y menor que 20 HECHO
+
+Clase Compra:
+	- ImporteCompra debe ser mayor que 0 HECHO
+	- FechaCompra no puede ser null (en formulario) HECHO
+
+Clase Credito:
+	- categoria puede ser valores 1, 2, 3, 4 HECHO
+	- credito disponible no puede ser menor a 0 HECHO
+
+Clase Debito:
+	- saldo debe ser mayor o igual que 0 HECHO
+
+Clase Tarjeta:
+	- personalizada tiene valores 1, 2 HECHO
+	- FechaCompra no puede ser null (en formulario) HECHO

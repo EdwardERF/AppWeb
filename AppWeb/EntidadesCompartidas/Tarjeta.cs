@@ -38,14 +38,24 @@ namespace EntidadesCompartidas
 
         public DateTime FechaVencimiento
         {
+            set {
+                if (_FechaVencimiento != null)
+                    _FechaVencimiento = value;
+                else
+                    throw new Exception("Le ha faltado ingresar una fecha de vencimiento");
+                }
             get { return _FechaVencimiento; }
-            set { _FechaVencimiento = value; }
         }
 
         public int Personalizada
         {
+            set {
+                if ((_Personalizada > 0) && (_Personalizada < 3))
+                    _Personalizada = value;
+                else
+                    throw new Exception("Los valores aceptados para personalizada son 1 o 2");
+                }
             get { return _Personalizada; }
-            set { _Personalizada = value; }
         }
 
         //Constructores

@@ -19,8 +19,13 @@ namespace EntidadesCompartidas
         //Propiedades
         public int Saldo
         {
+            set {
+                if (_Saldo >= 0)
+                    _Saldo = value;
+                else
+                    throw new Exception("El saldo disponible debe ser mayor o igual a 0");
+                }
             get { return _Saldo; }
-            set { _Saldo = value; }
         }
 
         public int CuentasAsociadas

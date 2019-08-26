@@ -26,8 +26,13 @@ namespace EntidadesCompartidas
         //Propiedades
         public int CI
         {
+            set {
+                if ((value > 9999999) && (value < 100000000))
+                    _ci = value;
+                else
+                    throw new Exception("Rango de CI Invalido - Debe tener 8 digitos");
+                }
             get { return _ci; }
-            set { _ci = value; }
         }
 
         public string Nombre
@@ -44,8 +49,13 @@ namespace EntidadesCompartidas
 
         public int Telefono
         {
+            set {
+                if ((value > 5) && (value < 20))
+                    _telefono = value;
+                else
+                    throw new Exception("Telefono debe tener entre 5-20 numeros");
+                }
             get { return _telefono; }
-            set { _telefono = value; }
         }
 
         public Cliente Cli
