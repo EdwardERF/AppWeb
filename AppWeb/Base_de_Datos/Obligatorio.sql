@@ -1,4 +1,13 @@
-﻿create database Obligatorio
+﻿use master
+go
+
+if exists(Select * FROM SysDataBases WHERE name='Obligatorio')
+BEGIN
+	DROP DATABASE Obligatorio
+END
+go
+
+create database Obligatorio
 go
 
 use Obligatorio
@@ -11,15 +20,8 @@ create table Cliente
 (
 	ci int primary key,
 	nombre varchar(30) not null,
-	apellido varchar(30)
-)
-go
-
-create table Telefono
-(
-	numTel int not null,
-	ci int not null references Cliente(ci)
-	primary key(numTel, ci)
+	apellido varchar(30),
+	telefono int
 )
 go
 
@@ -59,26 +61,15 @@ go
 
 --Carga de datos
 
-insert Cliente values(11111111,'Andres','Sueto'),
-(22222222,'Lucas','Perez'),
-(33333333,'Anibal','Suarez'),
-(44444444,'Roberto','Bolaños'),
-(55555555,'Joaquin','Sabina'),
-(66666666,'Alberto','Rodriguez'),
-(77777777,'Sergio','Vazquez'),
-(88888888,'Leticia','Sosa'),
-(99999999,'Julia','Perez')
-go
-
-insert Telefono values(29000001,11111111),
-(29000002,22222222),
-(98111222,33333333),
-(29000003,44444444),
-(98222333,55555555),
-(98333444,66666666),
-(98222444,77777777),
-(29000004,88888888),
-(47241340,99999999)
+insert Cliente values(11111111,'Andres','Sueto', 29000001),
+(22222222,'Lucas','Perez', 29000002),
+(33333333,'Anibal','Suarez', 98111222),
+(44444444,'Roberto','Bolaños', 29000003),
+(55555555,'Joaquin','Sabina', 98222333),
+(66666666,'Alberto','Rodriguez', 98333444),
+(77777777,'Sergio','Vazquez', 98222444),
+(88888888,'Leticia','Sosa', 29000004),
+(99999999,'Julia','Perez', 47241340)
 go
 
 insert Tarjeta values(11111111,'20/05/2021',0),
@@ -117,30 +108,25 @@ go
 create proc sp_AgregarCliente
 @ci int,
 @nombre varchar(30),
-@apellido varchar(30)
+@apellido varchar(30),
+@telefono int
 AS
-	insert Cliente values(@ci, @nombre, @apellido)
+	insert Cliente values(@ci, @nombre, @apellido, @telefono)
+	if @@ERROR <> 0
+		return -1 --Esto es, error SQL
+	return 1 --Esto es, Alta exitosa
 go
 
-exec sp_ModificarCliente 1, 
 create proc sp_ModificarCliente
 @ci int,
 @nombre varchar(30),
 @apellido varchar(30),
-
-@numTel int
+@telefono int
 AS
 	if exists (select * from Cliente where ci = @ci)
 	begin
 		BEGIN TRAN
-		update Cliente set nombre = @nombre, apellido = @apellido
-		where ci = @ci
-		if (@@ERROR<>0)
-			begin
-				rollback tran
-				return -2 --Esto es, error de transaccion
-			end
-		update Telefono set numTel = @numTel
+		update Cliente set nombre = @nombre, apellido = @apellido, telefono = @telefono
 		where ci = @ci
 		if (@@ERROR<>0)
 			begin
@@ -154,9 +140,7 @@ AS
 		return -1 --Esto es, no existe un cliente con esa CI
 go
 
-select * from Cliente where ci = 1
-exec sp_EliminarCliente 1
-alter proc sp_EliminarCliente
+create proc sp_EliminarCliente
 @ci int
 AS
 	if exists (select * from Cliente where ci = @ci)
@@ -165,8 +149,8 @@ AS
 	begin
 		if not exists (select * from Compra JOIN Tarjeta ON Compra.NroTarj = Tarjeta.NroTarj where Tarjeta.ci = @ci) --Si no tiene compras
 		begin
-			if exists (select * from Credito C JOIN Tarjeta T ON C.NroTarj = T.NroTarj where T.ci = @ci) or exists (select * from Debito D JOIN Tarjeta T ON D.NroTarj = T.NroTarj where T.ci = @ci)
-				begin
+			if exists (select * from Credito C JOIN Tarjeta T ON C.NroTarj = T.NroTarj where T.ci = @ci) OR exists (select * from Debito D JOIN Tarjeta T ON D.NroTarj = T.NroTarj where T.ci = @ci)
+			begin
 				BEGIN TRAN
 				delete Credito from Credito C JOIN Tarjeta T ON C.NroTarj = T.NroTarj where T.ci = @ci
 				if @@ERROR <> 0
@@ -196,7 +180,6 @@ AS
 						rollback tran
 						return -3
 					end
-				
 			end
 			else 
 				return -2 --No tiene tarjetas para eliminar
@@ -204,12 +187,12 @@ AS
 		else if not exists (select * from Tarjeta where ci = @ci)
 		begin
 			BEGIN TRAN
-			delete Cliente where ci = @ci
-			if @@ERROR <> 0
-				begin
-					rollback tran
-					return -3
-				end
+				delete Cliente where ci = @ci
+				if @@ERROR <> 0 
+					begin
+						rollback tran
+						return -3
+					end
 			COMMIT TRAN
 			return 1
 		end
@@ -232,7 +215,6 @@ AS
 	select * from Cliente where ci = @ci
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 create proc sp_AgregarTarjetaCredito
 @ci int,
 @fechaVencimiento datetime,
@@ -379,7 +361,8 @@ AS
 	else
 		return -1 --ESTO ES UN ERROR SQL
 go
-
+select * from Compra
+go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 create proc sp_ListarCompras
 AS
@@ -425,7 +408,6 @@ AS
 go
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 create proc sp_DebitoVencidas
 AS
 	if exists (select * from Tarjeta)
