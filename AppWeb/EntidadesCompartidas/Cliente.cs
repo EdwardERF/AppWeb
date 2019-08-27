@@ -50,7 +50,7 @@ namespace EntidadesCompartidas
         public int Telefono
         {
             set {
-                if ((value > 5) && (value < 20))
+                if ((value > 9999) && (value < 999999999))
                     _telefono = value;
                 else
                     throw new Exception("Telefono debe tener entre 5-20 numeros");

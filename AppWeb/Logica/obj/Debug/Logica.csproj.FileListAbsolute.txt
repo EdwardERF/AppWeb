@@ -21,3 +21,14 @@ C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csproj.CoreCo
 C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csproj.CopyComplete
 C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.dll
 C:\Users\Edward\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.pdb
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\Logica.dll
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\Logica.pdb
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\EntidadesCompartidas.dll
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\Persistencia.dll
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\EntidadesCompartidas.pdb
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\bin\Debug\Persistencia.pdb
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csprojAssemblyReference.cache
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csproj.CoreCompileInputs.cache
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.csproj.CopyComplete
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.dll
+C:\Users\edwar\Desktop\Obligatorio\AppWeb\Logica\obj\Debug\Logica.pdb

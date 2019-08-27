@@ -20,7 +20,7 @@ namespace EntidadesCompartidas
         public int Categoria
         {
             set {
-                if ((_Categoria > 0) && (_Categoria < 5))
+                if ((value > 0) && (value < 5))
                     _Categoria = value;
                 else
                     throw new Exception("Las categorias disponibles son: 1, 2, 3 o 4");
@@ -31,7 +31,7 @@ namespace EntidadesCompartidas
         public int CreditoDisponible
         {
             set {
-                if (_CreditoDisponible >= 0)
+                if (value >= 0)
                     _CreditoDisponible = value;
                 else
                     throw new Exception("El credito disponible debe ser mayor o igual a 0");

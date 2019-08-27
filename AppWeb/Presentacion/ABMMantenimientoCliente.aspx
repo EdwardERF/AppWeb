@@ -81,7 +81,7 @@
             Mantenimiento de Clientess</div>
         <table class="auto-style7">
             <tr>
-                <td class="auto-style2">Cédula:Cédula:</td>
+                <td class="auto-style2">Cédula:</td>
                 <td class="auto-style5">
                     <asp:TextBox ID="txtCI" runat="server"></asp:TextBox>
                 </td>

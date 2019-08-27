@@ -20,7 +20,7 @@ namespace EntidadesCompartidas
         public int Saldo
         {
             set {
-                if (_Saldo >= 0)
+                if (value >= 0)
                     _Saldo = value;
                 else
                     throw new Exception("El saldo disponible debe ser mayor o igual a 0");
